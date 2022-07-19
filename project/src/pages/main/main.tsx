@@ -1,14 +1,16 @@
 import {Link} from 'react-router-dom';
-import PlaceCard from '../../components/place-card';
+import PlaceCard from '../../components/place-card/place-card';
 import Logo from '../../components/logo/logo';
+import {Offer} from '../../types/offer';
 
 type MainComponentProps = {
-  rentOffersCount: number
+  rentOffersCount: number;
+  offers: Offer[];
 };
 
 const tabIndexValue = 0;
 
-function Main({rentOffersCount}: MainComponentProps): JSX.Element {
+function Main({rentOffersCount, offers}: MainComponentProps): JSX.Element {
   return (
     <>
       <div style={{display: 'none'}}>
@@ -102,11 +104,9 @@ function Main({rentOffersCount}: MainComponentProps): JSX.Element {
                   </ul>
                 </form>
                 <div className="cities__places-list places__list tabs__content">
-                  <PlaceCard/>
-                  <PlaceCard/>
-                  <PlaceCard/>
-                  <PlaceCard/>
-                  <PlaceCard/>
+                  {
+                    offers.map((offer) => <PlaceCard key={offer.id} offer={offer}/>)
+                  }
                 </div>
               </section>
               <div className="cities__right-section">

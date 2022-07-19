@@ -6,18 +6,20 @@ import Favorites from '../../pages/favorites/favorites';
 import Room from '../../pages/room/room';
 import NotFoundPage from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
+import {Offer} from '../../types/offer';
 
-type MainComponentProps = {
-  rentOffersCount: number
+type AppComponentProps = {
+  rentOffersCount: number;
+  offers: Offer[];
 };
 
-function App({rentOffersCount}: MainComponentProps): JSX.Element {
+function App({rentOffersCount, offers}: AppComponentProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<Main rentOffersCount={rentOffersCount}/>}
+          element={<Main rentOffersCount={rentOffersCount} offers={offers}/>}
         />
         <Route
           path={AppRoute.Login}
