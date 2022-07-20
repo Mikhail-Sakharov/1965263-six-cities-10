@@ -35,7 +35,7 @@ function App({rentOffersCount, offers}: AppComponentProps): JSX.Element {
         />
         <Route
           path={AppRoute.Room}
-          element={<Room/>}
+          element={<Room offers={offers}/>}
         />
         <Route
           path={AppRoute.NotFound}
