@@ -28,7 +28,7 @@ export const offers: Offer[] = [
       'https://10.react.pages.academy/static/hotel/19.jpg'
     ],
     title: 'Penthouse, 4-5 rooms + 5 balconies',
-    isFavorite: false,
+    isFavorite: true,
     isPremium: false,
     rating: 4.1,
     type: 'hotel',
@@ -134,7 +134,7 @@ export const offers: Offer[] = [
       'https://10.react.pages.academy/static/hotel/3.jpg'
     ],
     title: 'Nice, cozy, warm big bed apartment',
-    isFavorite: false,
+    isFavorite: true,
     isPremium: false,
     rating: 3,
     type: 'house',
@@ -223,5 +223,58 @@ export const offers: Offer[] = [
       zoom: 16
     },
     id: 4
+  },
+  {
+    city: {
+      name: 'Hamburg',
+      location: {
+        latitude: 53.550341,
+        longitude: 10.000654,
+        zoom: 13
+      }
+    },
+    previewImage: 'https://10.react.pages.academy/static/hotel/3.jpg',
+    images: [
+      'https://10.react.pages.academy/static/hotel/9.jpg',
+      'https://10.react.pages.academy/static/hotel/2.jpg',
+      'https://10.react.pages.academy/static/hotel/8.jpg',
+      'https://10.react.pages.academy/static/hotel/5.jpg',
+      'https://10.react.pages.academy/static/hotel/16.jpg',
+      'https://10.react.pages.academy/static/hotel/18.jpg',
+      'https://10.react.pages.academy/static/hotel/19.jpg',
+      'https://10.react.pages.academy/static/hotel/1.jpg',
+      'https://10.react.pages.academy/static/hotel/7.jpg',
+      'https://10.react.pages.academy/static/hotel/20.jpg',
+      'https://10.react.pages.academy/static/hotel/6.jpg',
+      'https://10.react.pages.academy/static/hotel/10.jpg',
+      'https://10.react.pages.academy/static/hotel/11.jpg',
+      'https://10.react.pages.academy/static/hotel/3.jpg'
+    ],
+    title: 'Amazing and Extremely Central Flat',
+    isFavorite: true,
+    isPremium: false,
+    rating: 3.2,
+    type: 'house',
+    bedrooms: 2,
+    maxAdults: 6,
+    price: 742,
+    goods: [
+      'Laptop friendly workspace',
+      'Breakfast',
+      'Washer'
+    ],
+    host: {
+      id: 25,
+      name: 'Angelina',
+      isPro: true,
+      avatarUrl: 'img/avatar-angelina.jpg'
+    },
+    description: 'I am happy to welcome you to my apartment in the city center! Three words: location, cosy and chic!',
+    location: {
+      latitude: 53.538341,
+      longitude: 9.976654000000002,
+      zoom: 16
+    },
+    id: 6
   }
 ];
