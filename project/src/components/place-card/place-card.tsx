@@ -1,15 +1,16 @@
 import {Link} from 'react-router-dom';
 import {Offer} from '../../types/offer';
 
-type OfferComponentProps = {
+type PlaceCardComponentProps = {
   offer: Offer;
+  onMouseOverHandler: () => void;
 };
 
 const RATING_COEFFICIENT = 20;
 
-function PlaceCard({offer}: OfferComponentProps): JSX.Element {
+function PlaceCard({offer, onMouseOverHandler}: PlaceCardComponentProps): JSX.Element {
   return (
-    <article className="cities__card place-card">
+    <article id={`${offer.id}`} className="cities__card place-card" onMouseOver={onMouseOverHandler}>
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to="/">
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place"/>
