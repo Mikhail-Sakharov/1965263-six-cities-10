@@ -10,7 +10,7 @@ type RoomComponentProps = {
 function Room({offers}: RoomComponentProps): JSX.Element {
   const favoriteCount = offers.filter((offer) => offer.isFavorite).length;
   const pickedOffer = offers.find((offer) => offer.id === Number(window.location.pathname[window.location.pathname.length - 1]));
-  console.log(pickedOffer); //способ передачи данных выбранного предложения по аренде используя адресную строку(?)
+  //способ передачи данных выбранного предложения по аренде используя адресную строку(?)
   return (
     <>
       <div style={{display: 'none'}}>
