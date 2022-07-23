@@ -1,11 +1,10 @@
 import {Link} from 'react-router-dom';
+import {RATING_COEFFICIENT} from '../../const';
 import {Offer} from '../../types/offer';
 
 type FavoritesCardComponentProps = {
   favoritesCard: Offer;
 };
-
-const RATING_COEFFICIENT = 20;
 
 function FavoritesCard({favoritesCard}: FavoritesCardComponentProps) {
   return (

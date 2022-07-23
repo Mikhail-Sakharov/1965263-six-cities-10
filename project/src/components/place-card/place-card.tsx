@@ -1,4 +1,5 @@
 import {Link} from 'react-router-dom';
+import {RATING_COEFFICIENT} from '../../const';
 
 import {Offer} from '../../types/offer';
 
@@ -6,8 +7,6 @@ type PlaceCardComponentProps = {
   offer: Offer;
   onMouseOverHandler: () => void;
 };
-
-const RATING_COEFFICIENT = 20;
 
 function PlaceCard({offer, onMouseOverHandler}: PlaceCardComponentProps): JSX.Element {
 
