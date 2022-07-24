@@ -1,16 +1,22 @@
+import {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {Offer} from '../../types/offer';
 import OffersList from '../../components/offers-list/offers-list';
 import Logo from '../../components/logo/logo';
+import Map from '../../components/map/map';
 
 type MainComponentProps = {
-  rentOffersCount: number;
   offers: Offer[];
 };
 
 const tabIndexValue = 0;
 
-function Main({rentOffersCount, offers}: MainComponentProps): JSX.Element {
+function Main({offers}: MainComponentProps): JSX.Element {
+  const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined);
+  const onOfferItemHover = (offerId: number): void => {
+    const currentOffer = offers.find((offer) => offer.id === offerId);
+    setSelectedOffer(currentOffer);
+  };
   return (
     <>
       <div style={{display: 'none'}}>
@@ -87,7 +93,7 @@ function Main({rentOffersCount, offers}: MainComponentProps): JSX.Element {
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{rentOffersCount} places to stay in Amsterdam</b>
+                <b className="places__found">{offers.length} places to stay in Amsterdam</b>
                 <form className="places__sorting" action="#" method="get">
                   <span className="places__sorting-caption">Sort by</span>
                   <span className="places__sorting-type" tabIndex={tabIndexValue}>
@@ -103,10 +109,10 @@ function Main({rentOffersCount, offers}: MainComponentProps): JSX.Element {
                     <li className="places__option" tabIndex={tabIndexValue}>Top rated first</li>
                   </ul>
                 </form>
-                <OffersList offers={offers}/>
+                <OffersList offers={offers} onOfferItemHover={onOfferItemHover}/>
               </section>
               <div className="cities__right-section">
-                <section className="cities__map map"></section>
+                <Map offers={offers} selectedOffer={selectedOffer}/>
               </div>
             </div>
           </div>

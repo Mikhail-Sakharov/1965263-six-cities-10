@@ -10,18 +10,17 @@ import NotFoundPage from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
 
 type AppComponentProps = {
-  rentOffersCount: number;
   offers: Offer[];
   reviews: Review[];
 };
 
-function App({rentOffersCount, offers, reviews}: AppComponentProps): JSX.Element {
+function App({offers, reviews}: AppComponentProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<Main rentOffersCount={rentOffersCount} offers={offers}/>}
+          element={<Main offers={offers}/>}
         />
         <Route
           path={AppRoute.Login}

@@ -1,3 +1,4 @@
+import {MouseEvent} from 'react';
 import {Link} from 'react-router-dom';
 import {RATING_COEFFICIENT} from '../../const';
 
@@ -5,10 +6,14 @@ import {Offer} from '../../types/offer';
 
 type PlaceCardComponentProps = {
   offer: Offer;
-  onMouseOverHandler: () => void;
+  onOfferItemHover: (id: number) => void;
 };
 
-function PlaceCard({offer, onMouseOverHandler}: PlaceCardComponentProps): JSX.Element {
+function PlaceCard({offer, onOfferItemHover}: PlaceCardComponentProps): JSX.Element {
+  const onMouseOverHandler = (evt: MouseEvent<HTMLElement>) => {
+    evt.preventDefault();
+    onOfferItemHover(offer.id);
+  };
 
   return (
     <article id={`${offer.id}`} className="cities__card place-card" onMouseOver={onMouseOverHandler}>
