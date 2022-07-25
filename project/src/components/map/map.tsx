@@ -43,7 +43,7 @@ function Map({offers, selectedOffer}: MapProps): JSX.Element {
           .addTo(map);
       });
     }
-  }, [map, offers, selectedOffer]);
+  }, [currentCustomIcon, defaultCustomIcon, map, offers, selectedOffer]);
 
   return <section ref={mapRef} className="cities__map map"></section>;
 }

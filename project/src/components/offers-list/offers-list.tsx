@@ -1,4 +1,3 @@
-//import {useState} from 'react';
 import {Offer} from '../../types/offer';
 import PlaceCard from '../place-card/place-card';
 
@@ -8,7 +7,6 @@ type OffersListProps = {
 };
 
 function OffersList({offers, onOfferItemHover}: OffersListProps): JSX.Element {
-  //const [activePlaceCardId, setActivePlaceCardId] = useState(0);
 
   return (
     <div className="cities__places-list places__list tabs__content">

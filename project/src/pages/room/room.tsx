@@ -91,7 +91,7 @@ function Room({offers, reviews}: RoomComponentProps): JSX.Element {
                 </div>
                 <ul className="property__features">
                   <li className="property__feature property__feature--entire">
-                    {pickedOffer?.type.replace(/^\w/, (c) => c.toUpperCase())}
+                    {pickedOffer?.type}
                   </li>
                   <li className="property__feature property__feature--bedrooms">
                     {pickedOffer?.bedrooms} Bedrooms
