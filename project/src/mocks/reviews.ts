@@ -11,7 +11,7 @@ export const reviews: Review[] = [
     },
     rating: 4,
     comment: 'We loved it so much, the house, the veiw, the location just great.. Highly reccomend :)',
-    date: '2022-06-13T12:25:36.938Z'
+    date: '2022-12-13T12:25:36.938Z'
   },
   {
     id: 2,
@@ -23,7 +23,7 @@ export const reviews: Review[] = [
     },
     rating: 3,
     comment: 'Bathed in the nature. Completely unplugged. Unforgettable.',
-    date: '2022-06-05T12:25:36.939Z'
+    date: '2022-11-05T12:25:36.939Z'
   },
   {
     id: 3,
