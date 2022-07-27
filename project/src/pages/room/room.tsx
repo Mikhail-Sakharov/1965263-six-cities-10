@@ -127,7 +127,7 @@ function Room({offers, reviews}: RoomComponentProps): JSX.Element {
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
-              <OffersList listType={'room'} offers={restOffers} onOfferItemHover={() => null}/>
+              <OffersList listType={'room'} offers={restOffers}/>
             </section>
           </div>
         </main>

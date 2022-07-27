@@ -5,7 +5,7 @@ import PlaceCard from '../place-card/place-card';
 type OffersListProps = {
   listType: string;
   offers: Offer[];
-  onOfferItemHover: (id: number) => void;
+  onOfferItemHover?: (id: number) => void;
 };
 
 function OffersList({listType, offers, onOfferItemHover}: OffersListProps): JSX.Element {

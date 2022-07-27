@@ -7,14 +7,14 @@ import {Offer} from '../../types/offer';
 type PlaceCardComponentProps = {
   listType: string;
   offer: Offer;
-  onOfferItemHover: (id: number) => void;
+  onOfferItemHover?: (id: number) => void;
 };
 
 function PlaceCard({listType, offer, onOfferItemHover}: PlaceCardComponentProps): JSX.Element {
-  const onMouseOverHandler = (evt: MouseEvent<HTMLElement>) => {
+  const onMouseOverHandler = onOfferItemHover ? (evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();
     onOfferItemHover(offer.id);
-  };
+  } : undefined;
 
   return (
     <article id={`${offer.id}`} className={listType === 'main' ? 'cities__card place-card' : 'near-places__card place-card'} onMouseOver={onMouseOverHandler}>
