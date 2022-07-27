@@ -1,12 +1,11 @@
-import {Link} from 'react-router-dom';
 import {Offer} from '../../types/offer';
 import {Review} from '../../types/review';
 import {RATING_COEFFICIENT} from '../../const';
-import Logo from '../../components/logo/logo';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
+import Header from '../../components/header/header';
 
 type RoomComponentProps = {
   offers: Offer[];
@@ -14,7 +13,6 @@ type RoomComponentProps = {
 }
 
 function Room({offers, reviews}: RoomComponentProps): JSX.Element {
-  const favoriteCount = offers.filter((offer) => offer.isFavorite).length;
   const selectedOffer = offers.find((offer) => offer.id === Number(window.location.pathname[window.location.pathname.length - 1]));
   const restOffers = offers.slice().filter((offer) => offer !== selectedOffer);
 
@@ -25,32 +23,7 @@ function Room({offers, reviews}: RoomComponentProps): JSX.Element {
       </div>
 
       <div className="page">
-        <header className="header">
-          <div className="container">
-            <div className="header__wrapper">
-              <div className="header__left">
-                <Logo/>
-              </div>
-              <nav className="header__nav">
-                <ul className="header__nav-list">
-                  <li className="header__nav-item user">
-                    <Link className="header__nav-link header__nav-link--profile" to="/">
-                      <div className="header__avatar-wrapper user__avatar-wrapper">
-                      </div>
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                      <span className="header__favorite-count">{favoriteCount}</span>
-                    </Link>
-                  </li>
-                  <li className="header__nav-item">
-                    <Link className="header__nav-link" to="/">
-                      <span className="header__signout">Sign out</span>
-                    </Link>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </header>
+        <Header offers={offers}/>
 
         <main className="page__main page__main--property">
           <section className="property">
