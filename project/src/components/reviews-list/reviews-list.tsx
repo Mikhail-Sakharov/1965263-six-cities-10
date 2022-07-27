@@ -5,7 +5,7 @@ type ReviewsListProps = {
   reviews: Review[];
 };
 
-function ReviewsList({reviews}: ReviewsListProps) {
+function ReviewsList({reviews}: ReviewsListProps): JSX.Element {
   return (
     <ul className="reviews__list">
       {

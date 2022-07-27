@@ -109,7 +109,7 @@ function Main({offers}: MainComponentProps): JSX.Element {
                     <li className="places__option" tabIndex={tabIndexValue}>Top rated first</li>
                   </ul>
                 </form>
-                <OffersList offers={offers} onOfferItemHover={onOfferItemHover}/>
+                <OffersList listType={'main'} offers={offers} onOfferItemHover={onOfferItemHover}/>
               </section>
               <div className="cities__right-section">
                 <Map className={'cities__map map'} offers={offers} selectedOffer={selectedOffer}/>

@@ -5,19 +5,20 @@ import {RATING_COEFFICIENT} from '../../const';
 import {Offer} from '../../types/offer';
 
 type PlaceCardComponentProps = {
+  listType: string;
   offer: Offer;
   onOfferItemHover: (id: number) => void;
 };
 
-function PlaceCard({offer, onOfferItemHover}: PlaceCardComponentProps): JSX.Element {
+function PlaceCard({listType, offer, onOfferItemHover}: PlaceCardComponentProps): JSX.Element {
   const onMouseOverHandler = (evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();
     onOfferItemHover(offer.id);
   };
 
   return (
-    <article id={`${offer.id}`} className="cities__card place-card" onMouseOver={onMouseOverHandler}>
-      <div className="cities__image-wrapper place-card__image-wrapper">
+    <article id={`${offer.id}`} className={listType === 'main' ? 'cities__card place-card' : 'near-places__card place-card'} onMouseOver={onMouseOverHandler}>
+      <div className={listType === 'main' ? 'cities__image-wrapper place-card__image-wrapper' : 'near-places__image-wrapper place-card__image-wrapper'}>
         <Link to="/">
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place"/>
         </Link>

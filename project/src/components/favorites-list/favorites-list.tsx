@@ -6,7 +6,7 @@ type FavoritesListComponentProps = {
   favorites: Offer[];
 };
 
-function FavoritesList({favorites}: FavoritesListComponentProps) {
+function FavoritesList({favorites}: FavoritesListComponentProps): JSX.Element {
   const favoritesMap = new Map();
   const cityNamesSet = new Set(favorites.map((favorite) => favorite.city.name));
   cityNamesSet.forEach((cityName) => favoritesMap.set(cityName, [...favorites].filter((favorite) => favorite.city.name === cityName)));
