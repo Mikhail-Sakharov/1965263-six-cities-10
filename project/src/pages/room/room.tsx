@@ -1,3 +1,5 @@
+import {useMemo} from 'react';
+import {useParams} from 'react-router-dom';
 import {Offer} from '../../types/offer';
 import {Review} from '../../types/review';
 import {RATING_COEFFICIENT} from '../../const';
@@ -13,8 +15,9 @@ type RoomComponentProps = {
 }
 
 function Room({offers, reviews}: RoomComponentProps): JSX.Element {
-  const selectedOffer = offers.find((offer) => offer.id === Number(window.location.pathname[window.location.pathname.length - 1]));
-  const restOffers = offers.slice().filter((offer) => offer !== selectedOffer);
+  const selectedOfferId = Number(useParams().id);
+  const selectedOffer = useMemo(() => (offers.find((offer) => offer.id === selectedOfferId)), [offers, selectedOfferId]);
+  const restOffers = useMemo(() => (offers.slice().filter((offer) => offer !== selectedOffer)), [offers, selectedOffer]);
 
   return (
     <>
@@ -31,7 +34,7 @@ function Room({offers, reviews}: RoomComponentProps): JSX.Element {
               <div className="property__gallery">
                 {
                   selectedOffer?.images.map((imgUrl) => (
-                    <div key={`${imgUrl.match(/\d+.\w+$/gm)}`} className="property__image-wrapper">
+                    <div key={imgUrl} className="property__image-wrapper">
                       <img className="property__image" src={imgUrl} alt="Studio"/>
                     </div>
                   ))
