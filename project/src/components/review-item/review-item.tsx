@@ -6,7 +6,7 @@ type ReviewComponentProps = {
   review: Review;
 };
 
-function ReviewItem({review}: ReviewComponentProps) {
+function ReviewItem({review}: ReviewComponentProps): JSX.Element {
   return (
     <li className="reviews__item">
       <div className="reviews__user user">

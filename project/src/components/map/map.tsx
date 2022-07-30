@@ -7,10 +7,11 @@ import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
 
 type MapProps = {
   offers: Offer[];
-  selectedOffer: Offer | undefined;
+  selectedOffer?: Offer | undefined;
+  className: string;
 };
 
-function Map({offers, selectedOffer}: MapProps): JSX.Element {
+function Map({offers, selectedOffer, className}: MapProps): JSX.Element {
   const mapRef = useRef<HTMLElement | null>(null);
   const map = useMap(mapRef, offers[0].city);
 
@@ -45,7 +46,7 @@ function Map({offers, selectedOffer}: MapProps): JSX.Element {
     }
   }, [currentCustomIcon, defaultCustomIcon, map, offers, selectedOffer]);
 
-  return <section ref={mapRef} className="cities__map map"></section>;
+  return <section ref={mapRef} className={className}></section>;
 }
 
 export default Map;

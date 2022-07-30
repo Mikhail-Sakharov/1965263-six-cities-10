@@ -1,23 +1,23 @@
-import {MouseEvent} from 'react';
+import {MouseEvent, useMemo} from 'react';
 import {Link} from 'react-router-dom';
-import {RATING_COEFFICIENT} from '../../const';
-
+import {imageWrapperClassNameMap, placeCardClassNameMap, RATING_COEFFICIENT} from '../../const';
 import {Offer} from '../../types/offer';
 
 type PlaceCardComponentProps = {
+  listType: 'main' | 'room';
   offer: Offer;
-  onOfferItemHover: (id: number) => void;
+  onOfferItemHover?: (id: number) => void;
 };
 
-function PlaceCard({offer, onOfferItemHover}: PlaceCardComponentProps): JSX.Element {
-  const onMouseOverHandler = (evt: MouseEvent<HTMLElement>) => {
+function PlaceCard({listType, offer, onOfferItemHover}: PlaceCardComponentProps): JSX.Element {
+  const onMouseOverHandler = useMemo(() => (onOfferItemHover && ((evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();
     onOfferItemHover(offer.id);
-  };
+  })), [offer.id, onOfferItemHover]);
 
   return (
-    <article id={`${offer.id}`} className="cities__card place-card" onMouseOver={onMouseOverHandler}>
-      <div className="cities__image-wrapper place-card__image-wrapper">
+    <article id={`${offer.id}`} className={placeCardClassNameMap[listType]} onMouseOver={onMouseOverHandler}>
+      <div className={imageWrapperClassNameMap[listType]}>
         <Link to="/">
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place"/>
         </Link>

@@ -6,7 +6,7 @@ type FavoritesCardComponentProps = {
   favoritesCard: Offer;
 };
 
-function FavoritesCard({favoritesCard}: FavoritesCardComponentProps) {
+function FavoritesCard({favoritesCard}: FavoritesCardComponentProps): JSX.Element {
   return (
     <article className="favorites__card place-card">
       <div className="favorites__image-wrapper place-card__image-wrapper">
