@@ -4,6 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import {Offer} from '../../types/offer';
 import useMap from '../../hooks/useMap';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
+import {useAppSelector} from '../../hooks';
 
 type MapProps = {
   offers: Offer[];
@@ -12,8 +13,10 @@ type MapProps = {
 };
 
 function Map({offers, selectedOffer, className}: MapProps): JSX.Element {
+  const stateOffers: Offer[] = useAppSelector((state) => state.offers);
+  const stateCity = useAppSelector((state) => state.offers[0].city);
   const mapRef = useRef<HTMLElement | null>(null);
-  const map = useMap(mapRef, offers[0].city);
+  const map = useMap(mapRef, stateCity);
 
   const defaultCustomIcon = leaflet.icon({
     iconUrl: URL_MARKER_DEFAULT,
@@ -29,7 +32,7 @@ function Map({offers, selectedOffer, className}: MapProps): JSX.Element {
 
   useEffect(() => {
     if (map) {
-      offers.forEach((offer) => {
+      stateOffers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude,
@@ -44,7 +47,7 @@ function Map({offers, selectedOffer, className}: MapProps): JSX.Element {
           .addTo(map);
       });
     }
-  }, [currentCustomIcon, defaultCustomIcon, map, offers, selectedOffer]);
+  }, [currentCustomIcon, defaultCustomIcon, map, stateOffers, selectedOffer]);
 
   return <section ref={mapRef} className={className}></section>;
 }

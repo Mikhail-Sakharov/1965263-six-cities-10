@@ -2,17 +2,15 @@ import {useState} from 'react';
 import {Offer} from '../../types/offer';
 import OffersList from '../offers-list/offers-list';
 import Map from '../map/map';
-
-type PlacesContainerProps = {
-  offers: Offer[];
-};
+import {useAppSelector} from '../../hooks';
 
 const tabIndexValue = 0;
 
-function PlacesContainer({offers}: PlacesContainerProps): JSX.Element {
+function PlacesContainer(): JSX.Element {
+  const stateOffers: Offer[] = useAppSelector((state) => state.offers);
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined);
   const onOfferItemHover = (offerId: number): void => {
-    const currentOffer = offers.find((offer) => offer.id === offerId);
+    const currentOffer = stateOffers.find((offer) => offer.id === offerId);
     setSelectedOffer(currentOffer);
   };
 
@@ -20,7 +18,7 @@ function PlacesContainer({offers}: PlacesContainerProps): JSX.Element {
     <div className="cities__places-container container">
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
-        <b className="places__found">{offers.length} places to stay in Amsterdam</b>
+        <b className="places__found">{stateOffers.length} places to stay in {stateOffers[0].city.name}</b>
         <form className="places__sorting" action="#" method="get">
           <span className="places__sorting-caption">Sort by</span>
           <span className="places__sorting-type" tabIndex={tabIndexValue}>
@@ -36,10 +34,10 @@ function PlacesContainer({offers}: PlacesContainerProps): JSX.Element {
             <li className="places__option" tabIndex={tabIndexValue}>Top rated first</li>
           </ul>
         </form>
-        <OffersList listType={'main'} offers={offers} onOfferItemHover={onOfferItemHover}/>
+        <OffersList listType={'main'} offers={stateOffers} onOfferItemHover={onOfferItemHover}/>
       </section>
       <div className="cities__right-section">
-        <Map className={'cities__map map'} offers={offers} selectedOffer={selectedOffer}/>
+        <Map className={'cities__map map'} offers={stateOffers} selectedOffer={selectedOffer}/>
       </div>
     </div>
   );
