@@ -32,3 +32,5 @@ export const imageWrapperClassNameMap = {
   main: 'cities__image-wrapper place-card__image-wrapper',
   room: 'near-places__image-wrapper place-card__image-wrapper',
 };
+
+export const cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
