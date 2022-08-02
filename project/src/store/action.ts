@@ -6,3 +6,11 @@ export const changeCityAction = createAction('main/changeCity', (city, offers) =
     offers
   }
 }));
+
+export const clickSortMenuAction = createAction('sort/clickSortMenuAction');
+
+export const changeSortTypeAction = createAction('sort/changeSortTypeAction', (sortOption) => ({
+  payload: {
+    sortOption
+  }
+}));

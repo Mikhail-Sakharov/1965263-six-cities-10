@@ -14,9 +14,9 @@ export enum AuthorizationStatus {
 
 export const RATING_COEFFICIENT = 20;
 
-export const URL_MARKER_DEFAULT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
+export const URL_MARKER_DEFAULT = 'img/pin.svg';
 
-export const URL_MARKER_CURRENT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
+export const URL_MARKER_CURRENT = 'img/pin-active.svg';
 
 export const listClassNameMap = {
   main: 'cities__places-list places__list tabs__content',

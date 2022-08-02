@@ -20,14 +20,14 @@ function Map({offers, selectedOffer, className}: MapProps): JSX.Element {
 
   const defaultCustomIcon = leaflet.icon({
     iconUrl: URL_MARKER_DEFAULT,
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
+    iconSize: [28, 40],
+    iconAnchor: [14, 40],
   });
 
   const currentCustomIcon = leaflet.icon({
     iconUrl: URL_MARKER_CURRENT,
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
+    iconSize: [28, 40],
+    iconAnchor: [14, 40],
   });
 
   useEffect(() => {
