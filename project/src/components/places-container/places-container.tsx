@@ -6,7 +6,7 @@ import {useAppSelector} from '../../hooks';
 import SortOptionsList from '../sort-options-list/sort-options-list';
 
 function PlacesContainer(): JSX.Element {
-  const stateOffers: Offer[] = useAppSelector((state) => state.offers);
+  const stateOffers: Offer[] = useAppSelector((state) => state.offers.filter((offer) => offer.city.name === state.city));
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined);
   const onOfferItemHover = (offerId: number): void => {
     const currentOffer = stateOffers.find((offer) => offer.id === offerId);

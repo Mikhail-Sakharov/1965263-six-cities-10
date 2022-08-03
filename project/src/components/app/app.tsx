@@ -1,6 +1,5 @@
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
-import {Offer} from '../../types/offer';
 import {Review} from '../../types/review';
 import Main from '../../pages/main/main';
 import Login from '../../pages/login/login';
@@ -8,13 +7,25 @@ import Favorites from '../../pages/favorites/favorites';
 import Room from '../../pages/room/room';
 import NotFoundPage from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
+import {useAppSelector} from '../../hooks';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import { offers } from '../../mocks/offers';
 
 type AppComponentProps = {
-  offers: Offer[];
   reviews: Review[];
 };
 
-function App({offers, reviews}: AppComponentProps): JSX.Element {
+function App({reviews}: AppComponentProps): JSX.Element {
+  //const {offers} = useAppSelector((state) => state);
+  const {authorizationStatus, isDataLoaded} = useAppSelector((state) => state);
+  const isCheckedAuth = (authStatus: AuthorizationStatus): boolean => authStatus === AuthorizationStatus.Unknown;
+
+  if (isCheckedAuth(authorizationStatus) || isDataLoaded) {
+    return (
+      <LoadingScreen/>
+    );
+  }
+
   return (
     <BrowserRouter>
       <Routes>
@@ -29,7 +40,7 @@ function App({offers, reviews}: AppComponentProps): JSX.Element {
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+            <PrivateRoute authorizationStatus={authorizationStatus}>
               <Favorites offers={offers}/>
             </PrivateRoute>
           }

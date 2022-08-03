@@ -1,3 +1,14 @@
+export enum APIRoute {
+  Hotels = '/hotels',
+  Hotel = '/hotels/:id',
+  HotelsNearby = '/hotels/:id/nearby',
+  Favorites = '/favorite',
+  Comments = '/comments/:id',
+  Comment = '/comments/:id',
+  Login = '/login',
+  Logout = '/logout',
+}
+
 export enum AppRoute {
   Main = '/',
   Login = '/login',
@@ -34,3 +45,5 @@ export const imageWrapperClassNameMap = {
 };
 
 export const cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+
+export const TIMEOUT_SHOW_ERROR = 2000;

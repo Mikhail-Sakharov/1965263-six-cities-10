@@ -8,6 +8,7 @@ import ReviewsList from '../../components/reviews-list/reviews-list';
 import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
 import Header from '../../components/header/header';
+import {useAppSelector} from '../../hooks';
 
 type RoomComponentProps = {
   offers: Offer[];
@@ -15,9 +16,10 @@ type RoomComponentProps = {
 }
 
 function Room({offers, reviews}: RoomComponentProps): JSX.Element {
+  const stateOffers: Offer[] = useAppSelector((state) => state.offers.filter((offer) => offer.city.name === state.city));
+  //const nearestOffers = stateOffers.slice(0, 4).sort((next, current) => next.location.latitude - current.location.latitude).sort((next, current) => next.location.longitude - current.location.longitude); //доработать поиск ближайших точек
   const selectedOfferId = Number(useParams().id);
-  const selectedOffer = useMemo(() => (offers.find((offer) => offer.id === selectedOfferId)), [offers, selectedOfferId]);
-  const restOffers = useMemo(() => (offers.slice().filter((offer) => offer !== selectedOffer)), [offers, selectedOffer]);
+  const selectedOffer = useMemo(() => (stateOffers.find((offer) => offer.id === selectedOfferId)), [selectedOfferId, stateOffers]);
 
   return (
     <>
@@ -125,12 +127,12 @@ function Room({offers, reviews}: RoomComponentProps): JSX.Element {
                 </section>
               </div>
             </div>
-            <Map className={'property__map map'} offers={restOffers}/>
+            <Map className={'property__map map'} offers={stateOffers}/>
           </section>
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
-              <OffersList listType={'room'} offers={restOffers}/>
+              <OffersList listType={'room'} offers={stateOffers}/>
             </section>
           </div>
         </main>
