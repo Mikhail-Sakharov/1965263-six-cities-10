@@ -16,7 +16,6 @@ type AppComponentProps = {
 };
 
 function App({reviews}: AppComponentProps): JSX.Element {
-  //const {offers} = useAppSelector((state) => state);
   const {authorizationStatus, isDataLoaded} = useAppSelector((state) => state);
   const isCheckedAuth = (authStatus: AuthorizationStatus): boolean => authStatus === AuthorizationStatus.Unknown;
 

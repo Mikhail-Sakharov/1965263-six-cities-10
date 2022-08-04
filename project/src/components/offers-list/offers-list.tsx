@@ -4,7 +4,7 @@ import PlaceCard from '../place-card/place-card';
 
 type OffersListProps = {
   listType: 'main' | 'room';
-  offers: Offer[];
+  offers: Offer[] | undefined;
   onOfferItemHover?: (id: number) => void;
 };
 
@@ -13,7 +13,7 @@ function OffersList({listType, offers, onOfferItemHover}: OffersListProps): JSX.
   return (
     <div className={listClassNameMap[listType]}>
       {
-        offers.map((offer) => <PlaceCard key={offer.id} listType={listType} offer={offer} onOfferItemHover={onOfferItemHover}/>)
+        offers?.map((offer) => <PlaceCard key={offer.id} listType={listType} offer={offer} onOfferItemHover={onOfferItemHover}/>)
       }
     </div>
   );

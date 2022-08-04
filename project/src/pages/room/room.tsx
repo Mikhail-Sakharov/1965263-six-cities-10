@@ -15,11 +15,25 @@ type RoomComponentProps = {
   reviews: Review[];
 }
 
+/* function getNearestPoints(points: Offer[], currentPointId: number): Offer[] {
+  const currentPoint = points.find((point) => point.id === currentPointId);
+  const filteredPoints = points.filter((point) => point.id !== currentPointId);
+  if (!currentPoint) { throw new Error('no such point'); }
+  const vectors = filteredPoints.map((point) => ({
+    id: point.id,
+    vector: Math.sqrt(Math.pow((point.location.latitude - currentPoint.location.latitude), 2) + Math.pow((point.location.longitude - currentPoint.location.longitude), 2))
+  }));
+  const sortedHypots = vectors.sort((n, c) => n.vector - c.vector);
+  const sortedPoints = sortedHypots.map((item) => points?.find((point) => point.id === item.id));
+  const nearestPoints = sortedPoints.slice(0, 3);
+  return [...nearestPoints, currentPoint];
+} */ // нужна нормальная типизация
+
 function Room({offers, reviews}: RoomComponentProps): JSX.Element {
   const stateOffers: Offer[] = useAppSelector((state) => state.offers.filter((offer) => offer.city.name === state.city));
-  //const nearestOffers = stateOffers.slice(0, 4).sort((next, current) => next.location.latitude - current.location.latitude).sort((next, current) => next.location.longitude - current.location.longitude); //доработать поиск ближайших точек
   const selectedOfferId = Number(useParams().id);
   const selectedOffer = useMemo(() => (stateOffers.find((offer) => offer.id === selectedOfferId)), [selectedOfferId, stateOffers]);
+  //const nearestOffers = getNearestPoints(stateOffers, selectedOfferId);
 
   return (
     <>
@@ -127,7 +141,7 @@ function Room({offers, reviews}: RoomComponentProps): JSX.Element {
                 </section>
               </div>
             </div>
-            <Map className={'property__map map'} offers={stateOffers}/>
+            <Map className={'property__map map'} offers={stateOffers} selectedOffer={selectedOffer}/>
           </section>
           <div className="container">
             <section className="near-places places">
