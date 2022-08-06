@@ -14,7 +14,7 @@ type RoomComponentProps = {
   reviews: Review[];
 }
 
-/* function getNearestPoints(selectedCityOffers: Offer[], selectedOfferId: Pick<Offer, 'id'> | number) {
+function getNearestPoints(selectedCityOffers: Offer[], selectedOfferId: Pick<Offer, 'id'> | number) {
   const currentPoint = selectedCityOffers.find((offer) => offer.id === Number(selectedOfferId));
   const filteredPoints = selectedCityOffers.filter((offer) => offer.id !== Number(selectedOfferId));
   if (!currentPoint) { throw new Error('no such point'); }
@@ -26,7 +26,7 @@ type RoomComponentProps = {
   const sortedPoints = sortedHypots.map((item) => selectedCityOffers.find((offer) => offer.id === item.id));
   const nearestPoints = sortedPoints.slice(0, 3);
   return [...nearestPoints, currentPoint];
-} */
+}
 
 function Room({reviews}: RoomComponentProps): JSX.Element {
   const {offers} = useAppSelector((state) => state);
@@ -34,7 +34,7 @@ function Room({reviews}: RoomComponentProps): JSX.Element {
   const selectedOfferId = Number(useParams().id);
   const selectedOffer = useMemo(() => (selectedCityOffers.find((offer) => offer.id === selectedOfferId)), [selectedOfferId, selectedCityOffers]);
 
-  //const nearestOffers = getNearestPoints(selectedCityOffers, selectedOfferId);
+  const nearestOffers = getNearestPoints(selectedCityOffers, selectedOfferId);
 
   return (
     <>
@@ -142,12 +142,12 @@ function Room({reviews}: RoomComponentProps): JSX.Element {
                 </section>
               </div>
             </div>
-            <Map className={'property__map map'} offers={selectedCityOffers/* nearestOffers ?? [selectedOffer] */} selectedOffer={selectedOffer}/>
+            <Map className={'property__map map'} offers={nearestOffers as Offer[] ?? [selectedOffer]} selectedOffer={selectedOffer}/>
           </section>
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
-              <OffersList listType={'room'} offers={selectedCityOffers/* nearestOffers ?? [selectedOffer] */}/>
+              <OffersList listType={'room'} offers={nearestOffers as Offer[] ?? [selectedOffer]}/>
             </section>
           </div>
         </main>

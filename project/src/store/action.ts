@@ -2,10 +2,9 @@ import {createAction} from '@reduxjs/toolkit';
 import {AppRoute, AuthorizationStatus} from '../const';
 import {Offer} from '../types/offer';
 
-export const changeCityAction = createAction('main/changeCity', (city, offers) => ({
+export const changeCityAction = createAction('main/changeCity', (city) => ({
   payload: {
-    city,
-    offers
+    city
   }
 }));
 
