@@ -1,13 +1,11 @@
 import {Link} from 'react-router-dom';
-import {Offer} from '../../types/offer';
 import FavoritesList from '../../components/favorites-list/favorites-list';
 import Header from '../../components/header/header';
+import {useAppSelector} from '../../hooks';
 
-type FavoritesComponentProps = {
-  offers: Offer[];
-};
+function Favorites(): JSX.Element {
+  const {offers} = useAppSelector((state) => state);
 
-function Favorites({offers}: FavoritesComponentProps): JSX.Element {
   return (
     <>
       <div style={{display: 'none'}}>

@@ -6,14 +6,13 @@ import useMap from '../../hooks/useMap';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
 
 type MapProps = {
-  offers?: Offer[] | undefined;
-  selectedOffer?: Offer | undefined;
+  offers: Offer[];
+  selectedOffer?: Offer;
   className: string;
 };
 
 function Map({offers, selectedOffer, className}: MapProps): JSX.Element {
-  if (!offers) { throw new Error('no such offer'); }
-  const city = offers[0]?.city ?? {name: 'Paris', location: {latitude: 48.85661, longitude: 2.351499, zoom: 13}};
+  const city = offers[0].city;
   const mapRef = useRef<HTMLElement | null>(null);
   const map = useMap(mapRef, city);
 

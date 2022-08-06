@@ -1,13 +1,12 @@
-import {Offer} from '../../types/offer';
 import PlacesContainer from '../../components/places-container/places-container';
 import Header from '../../components/header/header';
 import CitiesList from '../../components/cities-list/cities-list';
+import MainEmpty from '../../components/main-empty/main-empty';
+import {useAppSelector} from '../../hooks';
 
-type MainComponentProps = {
-  offers: Offer[];
-};
+function Main(): JSX.Element {
+  const {offers} = useAppSelector((state) => state);
 
-function Main({offers}: MainComponentProps): JSX.Element {
   return (
     <>
       <div style={{display: 'none'}}>
@@ -25,7 +24,7 @@ function Main({offers}: MainComponentProps): JSX.Element {
             </section>
           </div>
           <div className="cities">
-            <PlacesContainer/>
+            {offers ? <PlacesContainer/> : <MainEmpty/>}
           </div>
         </main>
       </div>

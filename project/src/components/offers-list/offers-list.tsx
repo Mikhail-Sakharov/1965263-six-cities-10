@@ -4,18 +4,20 @@ import PlaceCard from '../place-card/place-card';
 
 type OffersListProps = {
   listType: 'main' | 'room';
-  offers: Offer[] | undefined;
+  offers: Offer[];
   onOfferItemHover?: (id: number) => void;
 };
 
-function OffersList({listType, offers, onOfferItemHover}: OffersListProps): JSX.Element {
-
+function OffersList({listType, offers, onOfferItemHover}: OffersListProps): JSX.Element | null {
+  if (!offers) { throw new Error('no such point'); }
   return (
-    <div className={listClassNameMap[listType]}>
-      {
-        offers?.map((offer) => <PlaceCard key={offer.id} listType={listType} offer={offer} onOfferItemHover={onOfferItemHover}/>)
-      }
-    </div>
+    offers ? (
+      <div className={listClassNameMap[listType]}>
+        {
+          offers.map((offer) => <PlaceCard key={offer.id} listType={listType} offer={offer} onOfferItemHover={onOfferItemHover}/>)
+        }
+      </div>
+    ) : null
   );
 }
 

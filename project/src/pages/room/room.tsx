@@ -11,29 +11,30 @@ import Header from '../../components/header/header';
 import {useAppSelector} from '../../hooks';
 
 type RoomComponentProps = {
-  offers: Offer[];
   reviews: Review[];
 }
 
-/* function getNearestPoints(points: Offer[], currentPointId: number): Offer[] {
-  const currentPoint = points.find((point) => point.id === currentPointId);
-  const filteredPoints = points.filter((point) => point.id !== currentPointId);
+/* function getNearestPoints(selectedCityOffers: Offer[], selectedOfferId: Pick<Offer, 'id'> | number) {
+  const currentPoint = selectedCityOffers.find((offer) => offer.id === Number(selectedOfferId));
+  const filteredPoints = selectedCityOffers.filter((offer) => offer.id !== Number(selectedOfferId));
   if (!currentPoint) { throw new Error('no such point'); }
   const vectors = filteredPoints.map((point) => ({
     id: point.id,
     vector: Math.sqrt(Math.pow((point.location.latitude - currentPoint.location.latitude), 2) + Math.pow((point.location.longitude - currentPoint.location.longitude), 2))
   }));
   const sortedHypots = vectors.sort((n, c) => n.vector - c.vector);
-  const sortedPoints = sortedHypots.map((item) => points?.find((point) => point.id === item.id));
+  const sortedPoints = sortedHypots.map((item) => selectedCityOffers.find((offer) => offer.id === item.id));
   const nearestPoints = sortedPoints.slice(0, 3);
   return [...nearestPoints, currentPoint];
-} */ // нужна нормальная типизация
+} */
 
-function Room({offers, reviews}: RoomComponentProps): JSX.Element {
-  const stateOffers: Offer[] = useAppSelector((state) => state.offers.filter((offer) => offer.city.name === state.city));
+function Room({reviews}: RoomComponentProps): JSX.Element {
+  const {offers} = useAppSelector((state) => state);
+  const selectedCityOffers: Offer[] = useAppSelector((state) => state.offers.filter((offer) => offer.city.name === state.city));
   const selectedOfferId = Number(useParams().id);
-  const selectedOffer = useMemo(() => (stateOffers.find((offer) => offer.id === selectedOfferId)), [selectedOfferId, stateOffers]);
-  //const nearestOffers = getNearestPoints(stateOffers, selectedOfferId);
+  const selectedOffer = useMemo(() => (selectedCityOffers.find((offer) => offer.id === selectedOfferId)), [selectedOfferId, selectedCityOffers]);
+
+  //const nearestOffers = getNearestPoints(selectedCityOffers, selectedOfferId);
 
   return (
     <>
@@ -141,12 +142,12 @@ function Room({offers, reviews}: RoomComponentProps): JSX.Element {
                 </section>
               </div>
             </div>
-            <Map className={'property__map map'} offers={stateOffers} selectedOffer={selectedOffer}/>
+            <Map className={'property__map map'} offers={selectedCityOffers/* nearestOffers ?? [selectedOffer] */} selectedOffer={selectedOffer}/>
           </section>
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
-              <OffersList listType={'room'} offers={stateOffers}/>
+              <OffersList listType={'room'} offers={selectedCityOffers/* nearestOffers ?? [selectedOffer] */}/>
             </section>
           </div>
         </main>
