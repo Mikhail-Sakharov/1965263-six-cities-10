@@ -5,9 +5,10 @@ import {APIRoute, AppRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR} from '../co
 import {saveToken, dropToken} from '../services/token';
 import {AuthData} from '../types/auth-data';
 import {Offer} from '../types/offer';
+import { Review } from '../types/review';
 import {AppDispatch, State} from '../types/state';
 import {UserData} from '../types/user-data';
-import {loadSelectedOfferAction, loadOffersAction, redirectToRouteAction, requireAuthorization, setDataLoadedStatusAction, setErrorAction, loadNearestOffersAction} from './action';
+import {loadSelectedOfferAction, loadOffersAction, redirectToRouteAction, requireAuthorization, setDataLoadedStatusAction, setErrorAction, loadNearestOffersAction, loadCommentsAction} from './action';
 
 export const clearErrorAction = createAsyncThunk(
   'app/clearError',
@@ -57,6 +58,20 @@ export const fetchNearestOffersAction = createAsyncThunk<void, number, {
     const {data} = await api.get<Offer[]>(`${APIRoute.Hotels}/${_arg}/nearby`);
     dispatch(setDataLoadedStatusAction(true));
     dispatch(loadNearestOffersAction(data));
+    dispatch(setDataLoadedStatusAction(false));
+  },
+);
+
+export const fetchCommentsAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/fetchComments',
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get<Review[]>(`${APIRoute.Comments}/${_arg}`);
+    dispatch(setDataLoadedStatusAction(true));
+    dispatch(loadCommentsAction(data));
     dispatch(setDataLoadedStatusAction(false));
   },
 );

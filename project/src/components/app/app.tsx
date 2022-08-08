@@ -1,6 +1,5 @@
 import {Route, Routes} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
-import {Review} from '../../types/review';
 import Main from '../../pages/main/main';
 import Login from '../../pages/login/login';
 import Favorites from '../../pages/favorites/favorites';
@@ -12,11 +11,7 @@ import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 
-type AppComponentProps = {
-  reviews: Review[];
-};
-
-function App({reviews}: AppComponentProps): JSX.Element {
+function App(): JSX.Element {
   const {authorizationStatus, isDataLoaded} = useAppSelector((state) => state);
   const isCheckedAuth = (authStatus: AuthorizationStatus): boolean => authStatus === AuthorizationStatus.Unknown;
 
@@ -47,7 +42,7 @@ function App({reviews}: AppComponentProps): JSX.Element {
         />
         <Route
           path={AppRoute.Room}
-          element={<Room reviews={reviews}/>}
+          element={<Room/>}
         />
         <Route
           path={AppRoute.NotFound}

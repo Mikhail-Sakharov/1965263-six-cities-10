@@ -1,5 +1,4 @@
 import {useParams} from 'react-router-dom';
-import {Review} from '../../types/review';
 import {RATING_COEFFICIENT} from '../../const';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
@@ -7,22 +6,19 @@ import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
 import Header from '../../components/header/header';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {useMemo} from 'react';
-import {fetchNearestOffersAction, fetchSelectedOfferAction} from '../../store/api-actions';
+import {useEffect} from 'react';
+import {fetchCommentsAction, fetchNearestOffersAction, fetchSelectedOfferAction} from '../../store/api-actions';
 
-type RoomComponentProps = {
-  reviews: Review[];
-}
-
-function Room({reviews}: RoomComponentProps): JSX.Element {
+function Room(): JSX.Element {
   const selectedOfferId = Number(useParams().id);
   const dispatch = useAppDispatch();
-  useMemo(() => {
+  useEffect(() => {
     dispatch(fetchSelectedOfferAction(selectedOfferId));
     dispatch(fetchNearestOffersAction(selectedOfferId));
+    dispatch(fetchCommentsAction(selectedOfferId));
   }, [dispatch, selectedOfferId]);
 
-  const {selectedOffer, nearestOffers} = useAppSelector((state) => state);
+  const {selectedOffer, nearestOffers, comments} = useAppSelector((state) => state);
 
   return (
     <>
@@ -124,8 +120,8 @@ function Room({reviews}: RoomComponentProps): JSX.Element {
                   </div>
                 </div>
                 <section className="property__reviews reviews">
-                  <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                  <ReviewsList reviews={reviews}/>
+                  <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
+                  <ReviewsList reviews={comments}/>
                   <ReviewsForm/>
                 </section>
               </div>
