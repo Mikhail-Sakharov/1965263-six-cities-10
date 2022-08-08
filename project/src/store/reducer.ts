@@ -5,8 +5,7 @@ import {sortOffers} from '../utils';
 import {
   changeCityAction, changeSortTypeAction,
   loadNearestOffersAction,
-  loadOfferAction,
-  loadOffersAction, requireAuthorization,
+  loadOffersAction, loadSelectedOfferAction, requireAuthorization,
   setDataLoadedStatusAction, setErrorAction
 } from './action';
 
@@ -52,7 +51,7 @@ export const reducer = createReducer(initialState,
         state.offers = action.payload;
         state.selectedCityOffers = state.offers.filter((offer) => offer.city.name === state.city);
       })
-      .addCase(loadOfferAction, (state, action) => {
+      .addCase(loadSelectedOfferAction, (state, action) => {
         state.selectedOffer = action.payload;
       })
       .addCase(loadNearestOffersAction, (state, action) => {

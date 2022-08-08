@@ -1,6 +1,4 @@
-//import {useMemo} from 'react';
-//import {useParams} from 'react-router-dom';
-//import {Offer} from '../../types/offer';
+import {useParams} from 'react-router-dom';
 import {Review} from '../../types/review';
 import {RATING_COEFFICIENT} from '../../const';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
@@ -8,33 +6,23 @@ import ReviewsList from '../../components/reviews-list/reviews-list';
 import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
 import Header from '../../components/header/header';
-import {useAppSelector} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useMemo} from 'react';
+import {fetchNearestOffersAction, fetchSelectedOfferAction} from '../../store/api-actions';
 
 type RoomComponentProps = {
   reviews: Review[];
 }
 
-/* function getNearestPoints(selectedCityOffers: Offer[], selectedOfferId: Pick<Offer, 'id'> | number) {
-  const currentPoint = selectedCityOffers.find((offer) => offer.id === Number(selectedOfferId));
-  const filteredPoints = selectedCityOffers.filter((offer) => offer.id !== Number(selectedOfferId));
-  if (!currentPoint) { throw new Error('no such point'); }
-  const vectors = filteredPoints.map((point) => ({
-    id: point.id,
-    vector: Math.sqrt(Math.pow((point.location.latitude - currentPoint.location.latitude), 2) + Math.pow((point.location.longitude - currentPoint.location.longitude), 2))
-  }));
-  const sortedHypots = vectors.sort((n, c) => n.vector - c.vector);
-  const sortedPoints = sortedHypots.map((item) => selectedCityOffers.find((offer) => offer.id === item.id));
-  const nearestPoints = sortedPoints.slice(0, 3);
-  return [...nearestPoints, currentPoint];
-} */
-
 function Room({reviews}: RoomComponentProps): JSX.Element {
-  const {selectedOffer, nearestOffers} = useAppSelector((state) => state);
-  //const selectedCityOffers: Offer[] = useAppSelector((state) => state.offers.filter((offer) => offer.city.name === state.city));
-  //const selectedOfferId = Number(useParams().id);
-  //const selectedOffer = useMemo(() => (selectedCityOffers.find((offer) => offer.id === selectedOfferId)), [selectedOfferId, selectedCityOffers]);
+  const selectedOfferId = Number(useParams().id);
+  const dispatch = useAppDispatch();
+  useMemo(() => {
+    dispatch(fetchSelectedOfferAction(selectedOfferId));
+    dispatch(fetchNearestOffersAction(selectedOfferId));
+  }, [dispatch, selectedOfferId]);
 
-  //const nearestOffers = getNearestPoints(selectedCityOffers, selectedOfferId);
+  const {selectedOffer, nearestOffers} = useAppSelector((state) => state);
 
   return (
     <>

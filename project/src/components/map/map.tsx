@@ -11,7 +11,7 @@ type MapProps = {
   className: string;
 };
 
-function Map({offers, selectedOffer, className}: MapProps): JSX.Element {
+function Map({offers, selectedOffer, className}: MapProps): JSX.Element | null {
   const city = offers[0].city;
   const mapRef = useRef<HTMLElement | null>(null);
   const map = useMap(mapRef, city);
@@ -58,7 +58,7 @@ function Map({offers, selectedOffer, className}: MapProps): JSX.Element {
     }
   }, [className, currentCustomIcon, defaultCustomIcon, map, offers, selectedOffer]);
 
-  return <section ref={mapRef} className={className}></section>;
+  return offers ? <section ref={mapRef} className={className}></section> : null;
 }
 
 export default Map;

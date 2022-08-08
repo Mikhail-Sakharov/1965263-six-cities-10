@@ -7,7 +7,7 @@ import {AuthData} from '../types/auth-data';
 import {Offer} from '../types/offer';
 import {AppDispatch, State} from '../types/state';
 import {UserData} from '../types/user-data';
-import {loadNearestOffersAction, loadOfferAction, loadOffersAction, redirectToRouteAction, requireAuthorization, setDataLoadedStatusAction, setErrorAction} from './action';
+import {loadSelectedOfferAction, loadOffersAction, redirectToRouteAction, requireAuthorization, setDataLoadedStatusAction, setErrorAction, loadNearestOffersAction} from './action';
 
 export const clearErrorAction = createAsyncThunk(
   'app/clearError',
@@ -33,16 +33,16 @@ export const fetchHotelsAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const fetchHotelAction = createAsyncThunk<void, number, {
+export const fetchSelectedOfferAction = createAsyncThunk<void, number, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
-  'data/fetchHotel',
+  'data/fetchSelectedOffer',
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<Offer>(`${APIRoute.Hotels}/${_arg}`);
     dispatch(setDataLoadedStatusAction(true));
-    dispatch(loadOfferAction(data));
+    dispatch(loadSelectedOfferAction(data));
     dispatch(setDataLoadedStatusAction(false));
   },
 );
@@ -57,7 +57,6 @@ export const fetchNearestOffersAction = createAsyncThunk<void, number, {
     const {data} = await api.get<Offer[]>(`${APIRoute.Hotels}/${_arg}/nearby`);
     dispatch(setDataLoadedStatusAction(true));
     dispatch(loadNearestOffersAction(data));
-    dispatch(redirectToRouteAction(AppRoute.Room));
     dispatch(setDataLoadedStatusAction(false));
   },
 );
