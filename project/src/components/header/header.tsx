@@ -2,15 +2,10 @@ import {Link, useNavigate} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {logoutAction} from '../../store/api-actions';
-import {Offer} from '../../types/offer';
 import Logo from '../logo/logo';
 
-type HeaderProps = {
-  offers: Offer[];
-};
-
-function Header({offers}: HeaderProps): JSX.Element {
-  const {authorizationStatus} = useAppSelector((state) => state);
+function Header(): JSX.Element {
+  const {authorizationStatus, offers} = useAppSelector((state) => state);
   const favoriteCount = offers.slice().filter((offer) => offer.isFavorite).length;
 
   const navigate = useNavigate();

@@ -4,6 +4,8 @@ import {Offer} from '../types/offer';
 import {sortOffers} from '../utils';
 import {
   changeCityAction, changeSortTypeAction,
+  loadNearestOffersAction,
+  loadOfferAction,
   loadOffersAction, requireAuthorization,
   setDataLoadedStatusAction, setErrorAction
 } from './action';
@@ -12,6 +14,8 @@ type InitalState = {
   city: string,
   offers: Offer[],
   selectedCityOffers: Offer[],
+  selectedOffer: Offer | null,
+  nearestOffers: Offer[],
   activeSortOption: string,
   defaultSortedOffers: Offer[],
   authorizationStatus: AuthorizationStatus,
@@ -23,6 +27,8 @@ const initialState: InitalState = {
   city: 'Paris',
   offers: [],
   selectedCityOffers: [],
+  selectedOffer: null,
+  nearestOffers: [],
   activeSortOption: 'Popular',
   defaultSortedOffers: [],
   authorizationStatus: AuthorizationStatus.Unknown,
@@ -45,6 +51,12 @@ export const reducer = createReducer(initialState,
       .addCase(loadOffersAction, (state, action) => {
         state.offers = action.payload;
         state.selectedCityOffers = state.offers.filter((offer) => offer.city.name === state.city);
+      })
+      .addCase(loadOfferAction, (state, action) => {
+        state.selectedOffer = action.payload;
+      })
+      .addCase(loadNearestOffersAction, (state, action) => {
+        state.nearestOffers = action.payload;
       })
       .addCase(setDataLoadedStatusAction, (state, action) => {
         state.isDataLoaded = action.payload;

@@ -18,6 +18,10 @@ export const changeSortTypeAction = createAction('sort/changeSortTypeAction', (s
 
 export const loadOffersAction = createAction<Offer[]>('data/loadOffers');
 
+export const loadOfferAction = createAction<Offer>('data/loadOffer');
+
+export const loadNearestOffersAction = createAction<Offer[]>('data/loadNearestOffers');
+
 export const setDataLoadedStatusAction = createAction<boolean>('data/setDataLoadedStatus');
 
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');

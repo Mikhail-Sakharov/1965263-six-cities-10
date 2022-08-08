@@ -1,7 +1,5 @@
 export enum APIRoute {
   Hotels = '/hotels',
-  Hotel = '/hotels/:id',
-  HotelsNearby = '/hotels/:id/nearby',
   Favorites = '/favorite',
   Comments = '/comments/:id',
   Comment = '/comments/:id',

@@ -13,7 +13,7 @@ function Favorites(): JSX.Element {
       </div>
 
       <div className="page">
-        <Header offers={offers}/>
+        <Header/>
 
         <main className="page__main page__main--favorites">
           <div className="page__favorites-container container">

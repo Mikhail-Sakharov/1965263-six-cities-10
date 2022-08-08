@@ -7,7 +7,7 @@ import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
 
 type MapProps = {
   offers: Offer[];
-  selectedOffer?: Offer;
+  selectedOffer?: Offer | null;
   className: string;
 };
 
@@ -44,8 +44,19 @@ function Map({offers, selectedOffer, className}: MapProps): JSX.Element {
           )
           .addTo(map);
       });
+      if (className === 'property__map map' && selectedOffer) {
+        const marker = new Marker({
+          lat: selectedOffer.location.latitude,
+          lng: selectedOffer.location.longitude,
+        });
+        marker
+          .setIcon(
+            currentCustomIcon
+          )
+          .addTo(map);
+      }
     }
-  }, [currentCustomIcon, defaultCustomIcon, map, offers, selectedOffer]);
+  }, [className, currentCustomIcon, defaultCustomIcon, map, offers, selectedOffer]);
 
   return <section ref={mapRef} className={className}></section>;
 }

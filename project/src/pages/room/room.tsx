@@ -1,6 +1,6 @@
-import {useMemo} from 'react';
-import {useParams} from 'react-router-dom';
-import {Offer} from '../../types/offer';
+//import {useMemo} from 'react';
+//import {useParams} from 'react-router-dom';
+//import {Offer} from '../../types/offer';
 import {Review} from '../../types/review';
 import {RATING_COEFFICIENT} from '../../const';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
@@ -14,7 +14,7 @@ type RoomComponentProps = {
   reviews: Review[];
 }
 
-function getNearestPoints(selectedCityOffers: Offer[], selectedOfferId: Pick<Offer, 'id'> | number) {
+/* function getNearestPoints(selectedCityOffers: Offer[], selectedOfferId: Pick<Offer, 'id'> | number) {
   const currentPoint = selectedCityOffers.find((offer) => offer.id === Number(selectedOfferId));
   const filteredPoints = selectedCityOffers.filter((offer) => offer.id !== Number(selectedOfferId));
   if (!currentPoint) { throw new Error('no such point'); }
@@ -26,15 +26,15 @@ function getNearestPoints(selectedCityOffers: Offer[], selectedOfferId: Pick<Off
   const sortedPoints = sortedHypots.map((item) => selectedCityOffers.find((offer) => offer.id === item.id));
   const nearestPoints = sortedPoints.slice(0, 3);
   return [...nearestPoints, currentPoint];
-}
+} */
 
 function Room({reviews}: RoomComponentProps): JSX.Element {
-  const {offers} = useAppSelector((state) => state);
-  const selectedCityOffers: Offer[] = useAppSelector((state) => state.offers.filter((offer) => offer.city.name === state.city));
-  const selectedOfferId = Number(useParams().id);
-  const selectedOffer = useMemo(() => (selectedCityOffers.find((offer) => offer.id === selectedOfferId)), [selectedOfferId, selectedCityOffers]);
+  const {selectedOffer, nearestOffers} = useAppSelector((state) => state);
+  //const selectedCityOffers: Offer[] = useAppSelector((state) => state.offers.filter((offer) => offer.city.name === state.city));
+  //const selectedOfferId = Number(useParams().id);
+  //const selectedOffer = useMemo(() => (selectedCityOffers.find((offer) => offer.id === selectedOfferId)), [selectedOfferId, selectedCityOffers]);
 
-  const nearestOffers = getNearestPoints(selectedCityOffers, selectedOfferId);
+  //const nearestOffers = getNearestPoints(selectedCityOffers, selectedOfferId);
 
   return (
     <>
@@ -43,7 +43,7 @@ function Room({reviews}: RoomComponentProps): JSX.Element {
       </div>
 
       <div className="page">
-        <Header offers={offers}/>
+        <Header/>
 
         <main className="page__main page__main--property">
           <section className="property">
@@ -142,12 +142,12 @@ function Room({reviews}: RoomComponentProps): JSX.Element {
                 </section>
               </div>
             </div>
-            <Map className={'property__map map'} offers={nearestOffers as Offer[] ?? [selectedOffer]} selectedOffer={selectedOffer}/>
+            <Map className={'property__map map'} offers={nearestOffers} selectedOffer={selectedOffer}/>
           </section>
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
-              <OffersList listType={'room'} offers={nearestOffers as Offer[] ?? [selectedOffer]}/>
+              <OffersList listType={'room'} offers={nearestOffers}/>
             </section>
           </div>
         </main>

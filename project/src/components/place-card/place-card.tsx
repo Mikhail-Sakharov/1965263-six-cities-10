@@ -1,6 +1,8 @@
 import {MouseEvent, useMemo} from 'react';
 import {Link} from 'react-router-dom';
 import {imageWrapperClassNameMap, placeCardClassNameMap, RATING_COEFFICIENT} from '../../const';
+import {store} from '../../store';
+import {fetchHotelAction, fetchNearestOffersAction} from '../../store/api-actions';
 import {Offer} from '../../types/offer';
 
 type PlaceCardComponentProps = {
@@ -10,13 +12,18 @@ type PlaceCardComponentProps = {
 };
 
 function PlaceCard({listType, offer, onOfferItemHover}: PlaceCardComponentProps): JSX.Element {
-  const onMouseOverHandler = useMemo(() => (onOfferItemHover && ((evt: MouseEvent<HTMLElement>) => {
+  const handleOfferItemHover = useMemo(() => (onOfferItemHover && ((evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();
     onOfferItemHover(offer.id);
   })), [offer.id, onOfferItemHover]);
 
+  const handleOfferTitleClick = () => {
+    store.dispatch(fetchHotelAction(offer.id));
+    store.dispatch(fetchNearestOffersAction(offer.id));
+  };
+
   return (
-    <article id={`${offer.id}`} className={placeCardClassNameMap[listType]} onMouseOver={onMouseOverHandler}>
+    <article id={`${offer.id}`} className={placeCardClassNameMap[listType]} onMouseOver={handleOfferItemHover}>
       <div className={imageWrapperClassNameMap[listType]}>
         <Link to="/">
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place"/>
@@ -41,8 +48,8 @@ function PlaceCard({listType, offer, onOfferItemHover}: PlaceCardComponentProps)
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <h2 className="place-card__name">
-          <Link to={`/offer/${offer.id}`}>{offer.title}</Link>
+        <h2 className="place-card__name" onClick={handleOfferTitleClick}>
+          <Link to="">{offer.title}</Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>
