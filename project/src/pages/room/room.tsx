@@ -6,13 +6,14 @@ import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
 import Header from '../../components/header/header';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {useEffect} from 'react';
+import {useMemo} from 'react';
 import {fetchCommentsAction, fetchNearestOffersAction, fetchSelectedOfferAction} from '../../store/api-actions';
 
 function Room(): JSX.Element {
   const selectedOfferId = Number(useParams().id);
   const dispatch = useAppDispatch();
-  useEffect(() => {
+
+  useMemo(() => {
     dispatch(fetchSelectedOfferAction(selectedOfferId));
     dispatch(fetchNearestOffersAction(selectedOfferId));
     dispatch(fetchCommentsAction(selectedOfferId));
