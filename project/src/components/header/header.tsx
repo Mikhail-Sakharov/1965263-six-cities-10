@@ -2,6 +2,7 @@ import {Link, useNavigate} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getEmail} from '../../services/email';
+import {changeCityAction} from '../../store/action';
 import {logoutAction} from '../../store/api-actions';
 import Logo from '../logo/logo';
 
@@ -16,6 +17,7 @@ function Header(): JSX.Element {
 
   const handleSignOut = () => {
     dispatch(logoutAction());
+    dispatch(changeCityAction('Paris'));
   };
 
   return (

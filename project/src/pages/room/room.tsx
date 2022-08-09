@@ -1,5 +1,5 @@
 import {useParams} from 'react-router-dom';
-import {RATING_COEFFICIENT} from '../../const';
+import {AuthorizationStatus, RATING_COEFFICIENT} from '../../const';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Map from '../../components/map/map';
@@ -19,7 +19,7 @@ function Room(): JSX.Element {
     dispatch(fetchCommentsAction(selectedOfferId));
   }, [dispatch, selectedOfferId]);
 
-  const {selectedOffer, nearestOffers, comments} = useAppSelector((state) => state);
+  const {selectedOffer, nearestOffers, comments, authorizationStatus} = useAppSelector((state) => state);
 
   return (
     <>
@@ -123,7 +123,11 @@ function Room(): JSX.Element {
                 <section className="property__reviews reviews">
                   <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
                   <ReviewsList reviews={comments}/>
-                  <ReviewsForm offerId={selectedOfferId}/>
+                  {
+                    authorizationStatus === AuthorizationStatus.Auth
+                      ? <ReviewsForm offerId={selectedOfferId}/>
+                      : null
+                  }
                 </section>
               </div>
             </div>
