@@ -1,12 +1,15 @@
 import {Link, useNavigate} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
+import {getEmail} from '../../services/email';
 import {logoutAction} from '../../store/api-actions';
 import Logo from '../logo/logo';
 
 function Header(): JSX.Element {
   const {authorizationStatus, offers} = useAppSelector((state) => state);
   const favoriteCount = offers.slice().filter((offer) => offer.isFavorite).length;
+
+  const email = getEmail();
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -32,7 +35,7 @@ function Header(): JSX.Element {
                     authorizationStatus === AuthorizationStatus.Auth
                       ? (
                         <>
-                          <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                          <span className="header__user-name user__name">{email}</span>
                           <span className="header__favorite-count">{favoriteCount}</span>
                         </>
                       )
