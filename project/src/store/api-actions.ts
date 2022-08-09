@@ -43,10 +43,14 @@ export const fetchSelectedOfferAction = createAsyncThunk<void, number, {
 }>(
   'data/fetchSelectedOffer',
   async (_arg, {dispatch, extra: api}) => {
-    const {data} = await api.get<Offer>(`${APIRoute.Hotels}/${_arg}`);
-    dispatch(setDataLoadedStatusAction(true));
-    dispatch(loadSelectedOfferAction(data));
-    dispatch(setDataLoadedStatusAction(false));
+    try {
+      const {data} = await api.get<Offer>(`${APIRoute.Hotels}/${_arg}`);
+      dispatch(setDataLoadedStatusAction(true));
+      dispatch(loadSelectedOfferAction(data));
+      dispatch(setDataLoadedStatusAction(false));
+    } catch (error) {
+      dispatch(redirectToRouteAction(AppRoute.NotFound));
+    }
   },
 );
 
