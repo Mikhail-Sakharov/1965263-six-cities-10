@@ -2,9 +2,10 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AxiosInstance} from 'axios';
 import {store} from '.';
 import {APIRoute, AppRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR} from '../const';
-import { saveEmail } from '../services/email';
+import {saveEmail} from '../services/email';
 import {saveToken, dropToken} from '../services/token';
 import {AuthData} from '../types/auth-data';
+import {CommentRequestBody} from '../types/comment-request-body';
 import {Offer} from '../types/offer';
 import {Review} from '../types/review';
 import {AppDispatch, State} from '../types/state';
@@ -71,6 +72,22 @@ export const fetchCommentsAction = createAsyncThunk<void, number, {
   'data/fetchComments',
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<Review[]>(`${APIRoute.Comments}/${_arg}`);
+    dispatch(setDataLoadedStatusAction(true));
+    dispatch(loadCommentsAction(data));
+    dispatch(setDataLoadedStatusAction(false));
+  },
+);
+
+export const postCommentAction = createAsyncThunk<void, CommentRequestBody, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'user/postComment',
+  async (commentRequestBody, {dispatch, extra: api}) => {
+    const id = commentRequestBody.offerId;
+    delete commentRequestBody.offerId;
+    const {data} = await api.post<Review[]>(`${APIRoute.Comments}/${id}`, commentRequestBody);
     dispatch(setDataLoadedStatusAction(true));
     dispatch(loadCommentsAction(data));
     dispatch(setDataLoadedStatusAction(false));
