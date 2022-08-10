@@ -10,13 +10,14 @@ type PlaceCardComponentProps = {
 };
 
 function PlaceCard({listType, offer, onOfferItemHover}: PlaceCardComponentProps): JSX.Element {
-  const onMouseOverHandler = useMemo(() => (onOfferItemHover && ((evt: MouseEvent<HTMLElement>) => {
+
+  const handleOfferItemHover = useMemo(() => (onOfferItemHover && ((evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();
     onOfferItemHover(offer.id);
   })), [offer.id, onOfferItemHover]);
 
   return (
-    <article id={`${offer.id}`} className={placeCardClassNameMap[listType]} onMouseOver={onMouseOverHandler}>
+    <article id={`${offer.id}`} className={placeCardClassNameMap[listType]} onMouseOver={handleOfferItemHover}>
       <div className={imageWrapperClassNameMap[listType]}>
         <Link to="/">
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place"/>
@@ -42,7 +43,7 @@ function PlaceCard({listType, offer, onOfferItemHover}: PlaceCardComponentProps)
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/${offer.id}`}>{offer.title}</Link>
+          <Link to={`offer/${offer.id}`}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>

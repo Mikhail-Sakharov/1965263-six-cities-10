@@ -1,39 +1,25 @@
-import {useMemo} from 'react';
 import {useParams} from 'react-router-dom';
-import {Offer} from '../../types/offer';
-import {Review} from '../../types/review';
-import {RATING_COEFFICIENT} from '../../const';
+import {AuthorizationStatus, RATING_COEFFICIENT} from '../../const';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
 import Header from '../../components/header/header';
-import {useAppSelector} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useMemo} from 'react';
+import {fetchCommentsAction, fetchNearestOffersAction, fetchSelectedOfferAction} from '../../store/api-actions';
 
-type RoomComponentProps = {
-  offers: Offer[];
-  reviews: Review[];
-}
-
-/* function getNearestPoints(points: Offer[], currentPointId: number): Offer[] {
-  const currentPoint = points.find((point) => point.id === currentPointId);
-  const filteredPoints = points.filter((point) => point.id !== currentPointId);
-  if (!currentPoint) { throw new Error('no such point'); }
-  const vectors = filteredPoints.map((point) => ({
-    id: point.id,
-    vector: Math.sqrt(Math.pow((point.location.latitude - currentPoint.location.latitude), 2) + Math.pow((point.location.longitude - currentPoint.location.longitude), 2))
-  }));
-  const sortedHypots = vectors.sort((n, c) => n.vector - c.vector);
-  const sortedPoints = sortedHypots.map((item) => points?.find((point) => point.id === item.id));
-  const nearestPoints = sortedPoints.slice(0, 3);
-  return [...nearestPoints, currentPoint];
-} */ // нужна нормальная типизация
-
-function Room({offers, reviews}: RoomComponentProps): JSX.Element {
-  const stateOffers: Offer[] = useAppSelector((state) => state.offers.filter((offer) => offer.city.name === state.city));
+function Room(): JSX.Element {
   const selectedOfferId = Number(useParams().id);
-  const selectedOffer = useMemo(() => (stateOffers.find((offer) => offer.id === selectedOfferId)), [selectedOfferId, stateOffers]);
-  //const nearestOffers = getNearestPoints(stateOffers, selectedOfferId);
+  const dispatch = useAppDispatch();
+
+  useMemo(() => {
+    dispatch(fetchSelectedOfferAction(selectedOfferId));
+    dispatch(fetchNearestOffersAction(selectedOfferId));
+    dispatch(fetchCommentsAction(selectedOfferId));
+  }, [dispatch, selectedOfferId]);
+
+  const {selectedOffer, nearestOffers, comments, authorizationStatus} = useAppSelector((state) => state);
 
   return (
     <>
@@ -42,7 +28,7 @@ function Room({offers, reviews}: RoomComponentProps): JSX.Element {
       </div>
 
       <div className="page">
-        <Header offers={offers}/>
+        <Header/>
 
         <main className="page__main page__main--property">
           <section className="property">
@@ -135,18 +121,22 @@ function Room({offers, reviews}: RoomComponentProps): JSX.Element {
                   </div>
                 </div>
                 <section className="property__reviews reviews">
-                  <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                  <ReviewsList reviews={reviews}/>
-                  <ReviewsForm/>
+                  <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
+                  <ReviewsList reviews={comments}/>
+                  {
+                    authorizationStatus === AuthorizationStatus.Auth
+                      ? <ReviewsForm offerId={selectedOfferId}/>
+                      : null
+                  }
                 </section>
               </div>
             </div>
-            <Map className={'property__map map'} offers={stateOffers} selectedOffer={selectedOffer}/>
+            <Map className={'property__map map'} offers={nearestOffers} selectedOffer={selectedOffer}/>
           </section>
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
-              <OffersList listType={'room'} offers={stateOffers}/>
+              <OffersList listType={'room'} offers={nearestOffers}/>
             </section>
           </div>
         </main>

@@ -1,7 +1,6 @@
 import { FormEvent, useRef } from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
-import { AppRoute } from '../../const';
 import {useAppDispatch} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
 import {AuthData} from '../../types/auth-data';
@@ -11,7 +10,6 @@ function Login(): JSX.Element {
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
@@ -26,8 +24,6 @@ function Login(): JSX.Element {
         password: passwordRef.current.value,
       });
     }
-
-    navigate(AppRoute.Main);
   };
 
   return (

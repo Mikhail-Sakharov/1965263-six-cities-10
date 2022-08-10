@@ -6,14 +6,13 @@ import useMap from '../../hooks/useMap';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
 
 type MapProps = {
-  offers?: Offer[] | undefined;
-  selectedOffer?: Offer | undefined;
+  offers: Offer[];
+  selectedOffer?: Offer | null;
   className: string;
 };
 
-function Map({offers, selectedOffer, className}: MapProps): JSX.Element {
-  if (!offers) { throw new Error('no such offer'); }
-  const city = offers[0]?.city ?? {name: 'Paris', location: {latitude: 48.85661, longitude: 2.351499, zoom: 13}};
+function Map({offers, selectedOffer, className}: MapProps): JSX.Element | null {
+  const city = offers[0].city;
   const mapRef = useRef<HTMLElement | null>(null);
   const map = useMap(mapRef, city);
 
@@ -45,10 +44,21 @@ function Map({offers, selectedOffer, className}: MapProps): JSX.Element {
           )
           .addTo(map);
       });
+      if (className === 'property__map map' && selectedOffer) {
+        const marker = new Marker({
+          lat: selectedOffer.location.latitude,
+          lng: selectedOffer.location.longitude,
+        });
+        marker
+          .setIcon(
+            currentCustomIcon
+          )
+          .addTo(map);
+      }
     }
-  }, [currentCustomIcon, defaultCustomIcon, map, offers, selectedOffer]);
+  }, [className, currentCustomIcon, defaultCustomIcon, map, offers, selectedOffer]);
 
-  return <section ref={mapRef} className={className}></section>;
+  return offers ? <section ref={mapRef} className={className}></section> : null;
 }
 
 export default Map;
