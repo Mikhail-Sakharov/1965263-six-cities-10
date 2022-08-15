@@ -2,21 +2,25 @@ import {Link, useNavigate} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getEmail} from '../../services/email';
-import {changeCityAction} from '../../store/action';
 import {logoutAction} from '../../store/api-actions';
+import {changeCityAction} from '../../store/app-data/app-data';
+import {getOffers} from '../../store/app-data/selectors';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import Logo from '../logo/logo';
 
 function Header(): JSX.Element {
-  const {authorizationStatus, offers} = useAppSelector((state) => state);
+  const dispatch = useAppDispatch();
+
+  const offers = useAppSelector(getOffers);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const favoriteCount = offers.slice().filter((offer) => offer.isFavorite).length;
 
   const email = getEmail();
 
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
-  const handleSignOut = () => {
-    dispatch(logoutAction());
+  const handleSignOutClick = () => {
+    logoutAction();
     dispatch(changeCityAction('Paris'));
   };
 
@@ -47,7 +51,7 @@ function Header(): JSX.Element {
               </li>
               {
                 authorizationStatus === AuthorizationStatus.Auth && (
-                  <li className="header__nav-item" onClick={handleSignOut}>
+                  <li className="header__nav-item" onClick={handleSignOutClick}>
                     <Link className="header__nav-link" to="/">
                       <span className="header__signout">Sign out</span>
                     </Link>

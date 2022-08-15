@@ -1,5 +1,6 @@
 import {sortOptions, TAB_INDEX_VALUE} from '../../const';
 import {useAppSelector} from '../../hooks';
+import {getActiveSortOption} from '../../store/app-data/selectors';
 import SortOption from '../sort-option/sort-option';
 
 type SortOptionsListComponentProps = {
@@ -8,7 +9,7 @@ type SortOptionsListComponentProps = {
 };
 
 function SortOptionsList({isSortMenuOpened, setIsSortMenuOpened}: SortOptionsListComponentProps): JSX.Element {
-  const {activeSortOption} = useAppSelector((state) => state);
+  const activeSortOption = useAppSelector(getActiveSortOption);
 
   const handleClickSortMenu = () => {
     setIsSortMenuOpened(!isSortMenuOpened);

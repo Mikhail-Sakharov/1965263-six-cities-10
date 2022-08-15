@@ -1,17 +1,9 @@
-import {createReducer} from '@reduxjs/toolkit';
+//import {createReducer} from '@reduxjs/toolkit';
 import {AuthorizationStatus} from '../const';
 import {Offer} from '../types/offer';
 import {Review} from '../types/review';
-import {sortOffers} from '../utils';
-import {
-  changeCityAction, changeSortTypeAction,
-  loadCommentsAction,
-  loadNearestOffersAction,
-  loadOffersAction, loadSelectedOfferAction, requireAuthorization,
-  setDataLoadedStatusAction, setErrorAction
-} from './action';
 
-type InitalState = {
+export type InitalState = {
   city: string,
   offers: Offer[],
   selectedCityOffers: Offer[],
@@ -25,7 +17,7 @@ type InitalState = {
   error: string | null
 }
 
-const initialState: InitalState = {
+/* const initialState: InitalState = {
   city: 'Paris',
   offers: [],
   selectedCityOffers: [],
@@ -37,9 +29,9 @@ const initialState: InitalState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   isDataLoaded: false,
   error: null
-};
+}; */
 
-export const reducer = createReducer(initialState,
+/* export const reducer = createReducer(initialState,
   (builder) => {
     builder
       .addCase(changeCityAction, (state, action) => {
@@ -74,4 +66,4 @@ export const reducer = createReducer(initialState,
         state.error = action.payload;
       });
   }
-);
+); */

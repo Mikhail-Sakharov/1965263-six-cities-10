@@ -1,4 +1,4 @@
-import {useEffect, useRef} from 'react';
+import {memo, useEffect, useRef} from 'react';
 import leaflet, {Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {Offer} from '../../types/offer';
@@ -61,4 +61,4 @@ function Map({offers, selectedOffer, className}: MapProps): JSX.Element | null {
   return offers ? <section ref={mapRef} className={className}></section> : null;
 }
 
-export default Map;
+export default memo(Map);

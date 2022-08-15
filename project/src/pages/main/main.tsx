@@ -4,10 +4,11 @@ import CitiesList from '../../components/cities-list/cities-list';
 import MainEmpty from '../../components/main-empty/main-empty';
 import {useAppSelector} from '../../hooks';
 import {useState} from 'react';
+import {getOffers} from '../../store/app-data/selectors';
 
 function Main(): JSX.Element {
   const [isSortMenuOpened, setIsSortMenuOpened] = useState(false);
-  const {offers} = useAppSelector((state) => state);
+  const offers = useAppSelector(getOffers);
 
   return (
     <>

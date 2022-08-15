@@ -3,7 +3,7 @@ export enum APIRoute {
   Favorites = '/favorite',
   Comments = '/comments',
   Login = '/login',
-  Logout = '/logout',
+  Logout = '/logout'
 }
 
 export enum AppRoute {
@@ -17,7 +17,12 @@ export enum AppRoute {
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
-  Unknown = 'UNKNOWN',
+  Unknown = 'UNKNOWN'
+}
+
+export enum NameSpace {
+  Data = 'DATA',
+  User = 'USER'
 }
 
 export const RATING_COEFFICIENT = 20;

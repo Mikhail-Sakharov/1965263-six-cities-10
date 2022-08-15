@@ -1,4 +1,4 @@
-import {MouseEvent, useMemo} from 'react';
+import {memo, MouseEvent, useMemo} from 'react';
 import {Link} from 'react-router-dom';
 import {imageWrapperClassNameMap, placeCardClassNameMap, RATING_COEFFICIENT} from '../../const';
 import {Offer} from '../../types/offer';
@@ -51,4 +51,4 @@ function PlaceCard({listType, offer, onOfferItemHover}: PlaceCardComponentProps)
   );
 }
 
-export default PlaceCard;
+export default memo(PlaceCard);

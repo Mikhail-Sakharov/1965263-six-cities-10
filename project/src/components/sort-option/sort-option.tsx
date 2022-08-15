@@ -1,7 +1,7 @@
 import {TAB_INDEX_VALUE} from '../../const';
-import {useAppSelector} from '../../hooks';
-import {store} from '../../store';
-import {changeSortTypeAction} from '../../store/action';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {changeSortTypeAction} from '../../store/app-data/app-data';
+import {getActiveSortOption} from '../../store/app-data/selectors';
 
 type SortOptionComponentProps = {
   sortOption: string;
@@ -9,10 +9,12 @@ type SortOptionComponentProps = {
 };
 
 function SortOption({sortOption, onClickOption}: SortOptionComponentProps): JSX.Element {
-  const isActive = useAppSelector((state) => state.activeSortOption === sortOption);
+  const dispatch = useAppDispatch();
+  const activeSortOption = useAppSelector(getActiveSortOption);
+  const isActive = activeSortOption === sortOption;
   return (
     <li className={`places__option ${isActive && 'places__option--active'}`} tabIndex={TAB_INDEX_VALUE} onClick={() => {
-      store.dispatch(changeSortTypeAction(sortOption));
+      dispatch(changeSortTypeAction(sortOption));
       onClickOption();
     }}
     >{sortOption}

@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
-import {useAppSelector} from '../../hooks';
-import {store} from '../../store';
-import {changeCityAction} from '../../store/action';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {changeCityAction} from '../../store/app-data/app-data';
+import {getCurrentCity} from '../../store/app-data/selectors';
 
 type CityComponentProps = {
   city: string;
@@ -9,14 +9,16 @@ type CityComponentProps = {
 };
 
 function City({city, setIsSortMenuOpened}: CityComponentProps): JSX.Element {
-  const isActive = useAppSelector((state) => state.city === city);
+  const dispatch = useAppDispatch();
+  const currentCity = useAppSelector(getCurrentCity);
+  const isCityTabActive = city === currentCity;
   return (
     <li className="locations__item" onClick={() => {
-      store.dispatch(changeCityAction(city));
+      dispatch(changeCityAction(city));
       setIsSortMenuOpened(false);
     }}
     >
-      <Link className={`locations__item-link tabs__item ${isActive && 'tabs__item--active'}`} to="/">
+      <Link className={`locations__item-link tabs__item ${isCityTabActive && 'tabs__item--active'}`} to="/">
         <span>{city}</span>
       </Link>
     </li>
