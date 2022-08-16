@@ -46,6 +46,16 @@ export const imageWrapperClassNameMap = {
   room: 'near-places__image-wrapper place-card__image-wrapper',
 };
 
+export const ListType = {
+  MAIN: 'main',
+  ROOM: 'room'
+};
+
+export const listTypePathMap = {
+  [ListType.MAIN]: (id: number) => `offer/${id}`,
+  [ListType.ROOM]: (id: number) => `../offer/${id}`
+};
+
 export const cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 export const TAB_INDEX_VALUE = 0;

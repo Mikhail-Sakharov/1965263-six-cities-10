@@ -2,7 +2,7 @@ import {useParams} from 'react-router-dom';
 import {AuthorizationStatus, RATING_COEFFICIENT} from '../../const';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
-//import Map from '../../components/map/map';
+import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
 import Header from '../../components/header/header';
 import {useAppDispatch, useAppSelector} from '../../hooks';
@@ -10,7 +10,7 @@ import {memo, useEffect} from 'react';
 import {fetchCommentsAction, fetchNearestOffersAction, fetchSelectedOfferAction} from '../../store/api-actions';
 import {getComments, getNearestOffers, getSelectedOffer} from '../../store/app-data/selectors';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
-import { setDataLoadedStatus } from '../../store/app-data/app-data';
+import {setDataLoadedStatus} from '../../store/app-data/app-data';
 
 function Room(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -140,6 +140,7 @@ function Room(): JSX.Element {
                 </section>
               </div>
             </div>
+            <Map className={'property__map map'} offers={nearestOffers} selectedOffer={selectedOffer}/>
           </section>
           <div className="container">
             <section className="near-places places">

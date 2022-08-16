@@ -1,22 +1,12 @@
 import {memo, MouseEvent, useMemo} from 'react';
 import {Link} from 'react-router-dom';
-import {imageWrapperClassNameMap, placeCardClassNameMap, RATING_COEFFICIENT} from '../../const';
+import {imageWrapperClassNameMap, listTypePathMap, placeCardClassNameMap, RATING_COEFFICIENT} from '../../const';
 import {Offer} from '../../types/offer';
 
 type PlaceCardComponentProps = {
   listType: 'main' | 'room';
   offer: Offer;
   onOfferItemHover?: (id: number) => void;
-};
-
-const ListType = {
-  MAIN: 'main',
-  ROOM: 'room'
-};
-
-const listTypePathMap = {
-  [ListType.MAIN]: (id: number) => `offer/${id}`,
-  [ListType.ROOM]: (id: number) => `../offer/${id}`
 };
 
 function PlaceCard({listType, offer, onOfferItemHover}: PlaceCardComponentProps): JSX.Element {
