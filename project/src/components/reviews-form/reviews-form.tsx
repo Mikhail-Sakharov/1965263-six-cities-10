@@ -9,6 +9,7 @@ type ReviewsFormComponentProps = {
 
 function ReviewsForm({offerId}: ReviewsFormComponentProps): JSX.Element {
   const dispatch = useAppDispatch();
+
   const [comment, setComment] = useState<string>('');
   const [rating, setRating] = useState<number>(INITIAL_RATING_VALUE);
   const isSubmitButtonDisabled = comment.length < COMMENT_MAX_LENGTH || rating === INITIAL_RATING_VALUE;

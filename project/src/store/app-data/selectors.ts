@@ -10,6 +10,5 @@ export const getComments = (state: State): Review[] => state[NameSpace.Data].com
 export const getDataLoadedStatus = (state: State): boolean => state[NameSpace.Data].isDataLoaded;
 
 export const getActiveSortOption = (state: State): string => state[NameSpace.Data].activeSortOption;
-export const getErrorMessage = (state: State): string | null => state[NameSpace.Data].error;
 export const getCurrentCity = (state: State): string => state[NameSpace.Data].city;
 export const getSelectedCityOffers = (state: State): Offer[] => state[NameSpace.Data].selectedCityOffers;

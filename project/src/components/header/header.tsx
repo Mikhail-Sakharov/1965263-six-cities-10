@@ -13,14 +13,14 @@ function Header(): JSX.Element {
 
   const offers = useAppSelector(getOffers);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const favoriteCount = offers.slice().filter((offer) => offer.isFavorite).length;
+  const favoriteCount = offers.filter((offer) => offer.isFavorite).length;
 
   const email = getEmail();
 
   const navigate = useNavigate();
 
   const handleSignOutClick = () => {
-    logoutAction();
+    dispatch(logoutAction());
     dispatch(changeCityAction('Paris'));
   };
 

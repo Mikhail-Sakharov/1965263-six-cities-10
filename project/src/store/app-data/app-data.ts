@@ -14,8 +14,7 @@ type InitalState = {
   comments: Review[],
   activeSortOption: string,
   defaultSortedOffers: Offer[],
-  isDataLoaded: boolean,
-  error: string | null
+  isDataLoaded: boolean
 }
 
 const initialState: InitalState = {
@@ -27,8 +26,7 @@ const initialState: InitalState = {
   comments: [],
   activeSortOption: 'Popular',
   defaultSortedOffers: [],
-  isDataLoaded: false,
-  error: null
+  isDataLoaded: false
 };
 
 export const appData = createSlice({
@@ -45,8 +43,8 @@ export const appData = createSlice({
       state.activeSortOption = action.payload;
       state.selectedCityOffers = sortOffers(state.selectedCityOffers, state.defaultSortedOffers, action.payload);
     },
-    setErrorAction: (state, action) => {
-      state.error = action.payload;
+    setDataLoadedStatus: (state, action) => {
+      state.isDataLoaded = action.payload;
     }
   },
   extraReducers(builder) {
@@ -60,25 +58,25 @@ export const appData = createSlice({
         state.isDataLoaded = false;
       })
       .addCase(fetchSelectedOfferAction.pending, (state) => {
-        state.isDataLoaded = true;
+        //state.isDataLoaded = true;//
       })
       .addCase(fetchSelectedOfferAction.fulfilled, (state, action) => {
         state.selectedOffer = action.payload;
-        state.isDataLoaded = false;
+        //state.isDataLoaded = false;
       })
-      .addCase(fetchNearestOffersAction.pending, (state) => {
+      /* .addCase(fetchNearestOffersAction.pending, (state) => {
         state.isDataLoaded = true;
-      })
+      }) */
       .addCase(fetchNearestOffersAction.fulfilled, (state, action) => {
         state.nearestOffers = action.payload;
-        state.isDataLoaded = false;
+        //state.isDataLoaded = false;
       })
-      .addCase(fetchCommentsAction.pending, (state) => {
+      /* .addCase(fetchCommentsAction.pending, (state) => {
         state.isDataLoaded = true;
-      })
+      }) */
       .addCase(fetchCommentsAction.fulfilled, (state, action) => {
         state.comments = action.payload;
-        state.isDataLoaded = false;
+        //state.isDataLoaded = false;//
       })
       .addCase(postCommentAction.pending, (state) => {
         state.isDataLoaded = true;
@@ -90,4 +88,4 @@ export const appData = createSlice({
   }
 });
 
-export const {changeCityAction, changeSortTypeAction, setErrorAction} = appData.actions;
+export const {changeCityAction, changeSortTypeAction, setDataLoadedStatus} = appData.actions;

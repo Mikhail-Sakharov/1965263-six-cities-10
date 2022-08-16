@@ -9,6 +9,16 @@ type PlaceCardComponentProps = {
   onOfferItemHover?: (id: number) => void;
 };
 
+const ListType = {
+  MAIN: 'main',
+  ROOM: 'room'
+};
+
+const listTypePathMap = {
+  [ListType.MAIN]: (id: number) => `offer/${id}`,
+  [ListType.ROOM]: (id: number) => `../offer/${id}`
+};
+
 function PlaceCard({listType, offer, onOfferItemHover}: PlaceCardComponentProps): JSX.Element {
 
   const handleOfferItemHover = useMemo(() => (onOfferItemHover && ((evt: MouseEvent<HTMLElement>) => {
@@ -43,7 +53,7 @@ function PlaceCard({listType, offer, onOfferItemHover}: PlaceCardComponentProps)
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`offer/${offer.id}`}>{offer.title}</Link>
+          <Link to={listTypePathMap[listType](offer.id)}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>

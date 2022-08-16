@@ -48,8 +48,6 @@ export const imageWrapperClassNameMap = {
 
 export const cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
-export const TIMEOUT_SHOW_ERROR = 2000;
-
 export const TAB_INDEX_VALUE = 0;
 
 export const sortOptions = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
