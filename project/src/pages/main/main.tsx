@@ -9,6 +9,7 @@ import {getOffers} from '../../store/app-data/selectors';
 function Main(): JSX.Element {
   const [isSortMenuOpened, setIsSortMenuOpened] = useState(false);
   const offers = useAppSelector(getOffers);
+  const isEmpty = Object.prototype.toString.call(offers) !== '[object Array]' || offers.length === 0;
 
   return (
     <>
@@ -19,7 +20,7 @@ function Main(): JSX.Element {
       <div className="page page--gray page--main">
         <Header/>
 
-        <main className="page__main page__main--index">
+        <main className={`page__main page__main--index ${isEmpty && 'page__main--index-empty'}`}>
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
             <section className="locations container">
@@ -27,7 +28,7 @@ function Main(): JSX.Element {
             </section>
           </div>
           <div className="cities">
-            {offers ? <PlacesContainer isSortMenuOpened={isSortMenuOpened} setIsSortMenuOpened={setIsSortMenuOpened}/> : <MainEmpty/>}
+            {!isEmpty ? <PlacesContainer isSortMenuOpened={isSortMenuOpened} setIsSortMenuOpened={setIsSortMenuOpened}/> : <MainEmpty/>}
           </div>
         </main>
       </div>
