@@ -5,6 +5,7 @@ import {dropEmail, saveEmail} from '../services/email';
 import {saveToken, dropToken} from '../services/token';
 import {AuthData} from '../types/auth-data';
 import {CommentRequestBody} from '../types/comment-request-body';
+import {Favorite} from '../types/favorite';
 import {Offer} from '../types/offer';
 import {Review} from '../types/review';
 import {AppDispatch, State} from '../types/state';
@@ -81,6 +82,19 @@ export const postCommentAction = createAsyncThunk<Review[], CommentRequestBody, 
     const id = commentRequestBody.offerId;
     delete commentRequestBody.offerId;
     const {data} = await api.post<Review[]>(`${APIRoute.Comments}/${id}`, commentRequestBody);
+    return data;
+  },
+);
+
+export const postFavoriteAction = createAsyncThunk<Offer[], Favorite, { //WIP//
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'user/postFavorite',
+  async (FavoriteArgs, {dispatch, extra: api}) => {
+    const {offerId, postFavoriteStatus} = FavoriteArgs;
+    const {data} = await api.post<Offer[]>(`${APIRoute.Favorites}/${offerId}/${postFavoriteStatus}`);
     return data;
   },
 );

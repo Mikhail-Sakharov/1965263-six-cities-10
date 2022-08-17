@@ -3,7 +3,7 @@ import {NameSpace} from '../../const';
 import {Offer} from '../../types/offer';
 import {Review} from '../../types/review';
 import {sortOffers} from '../../utils';
-import {fetchHotelsAction, fetchSelectedOfferAction, fetchNearestOffersAction, fetchCommentsAction, postCommentAction, fetchFavoritesAction} from '../api-actions';
+import {fetchHotelsAction, fetchSelectedOfferAction, fetchNearestOffersAction, fetchCommentsAction, postCommentAction, fetchFavoritesAction, postFavoriteAction} from '../api-actions';
 
 type InitalState = {
   city: string,
@@ -84,6 +84,13 @@ export const appData = createSlice({
         state.isDataLoaded = true;
       }) */
       .addCase(fetchFavoritesAction.fulfilled, (state, action) => {
+        state.favorites = action.payload;
+        //state.isDataLoaded = false;
+      })
+      /* .addCase(postFavoriteAction.pending, (state) => {
+        state.isDataLoaded = true;
+      }) */
+      .addCase(postFavoriteAction.fulfilled, (state, action) => {
         state.favorites = action.payload;
         //state.isDataLoaded = false;
       })
