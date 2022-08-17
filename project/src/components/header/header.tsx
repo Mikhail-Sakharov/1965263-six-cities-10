@@ -4,16 +4,16 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getEmail} from '../../services/email';
 import {logoutAction} from '../../store/api-actions';
 import {changeCityAction} from '../../store/app-data/app-data';
-import {getOffers} from '../../store/app-data/selectors';
+import {getFavorites} from '../../store/app-data/selectors';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import Logo from '../logo/logo';
 
 function Header(): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const offers = useAppSelector(getOffers);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const favoriteCount = offers.filter((offer) => offer.isFavorite).length;
+  const favorites = useAppSelector(getFavorites);
+  const favoritesCount = favorites.length;
 
   const email = getEmail();
 
@@ -34,7 +34,7 @@ function Header(): JSX.Element {
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user" onClick={() => authorizationStatus !== AuthorizationStatus.Auth && navigate(AppRoute.Login)}>
-                <Link className="header__nav-link header__nav-link--profile" to="/">
+                <Link className="header__nav-link header__nav-link--profile" to="/favorites">
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
                   {
@@ -42,7 +42,7 @@ function Header(): JSX.Element {
                       ? (
                         <>
                           <span className="header__user-name user__name">{email}</span>
-                          <span className="header__favorite-count">{favoriteCount}</span>
+                          <span className="header__favorite-count">{favoritesCount}</span>
                         </>
                       )
                       : <span className="header__login">Sign in</span>

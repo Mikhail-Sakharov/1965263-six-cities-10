@@ -2,11 +2,11 @@ import {Link} from 'react-router-dom';
 import FavoritesList from '../../components/favorites-list/favorites-list';
 import Header from '../../components/header/header';
 import {useAppSelector} from '../../hooks';
-import {getOffers} from '../../store/app-data/selectors';
+import {getFavorites} from '../../store/app-data/selectors';
 
 function Favorites(): JSX.Element {
-  const offers = useAppSelector(getOffers);
-  const favoritesCount = offers.slice().filter((offer) => offer.isFavorite).length;
+  const favorites = useAppSelector(getFavorites);
+  const favoritesCount = favorites.length;
 
   return (
     <>
@@ -25,7 +25,7 @@ function Favorites(): JSX.Element {
                   ? (
                     <>
                       <h1 className="favorites__title">Saved listing</h1>
-                      <FavoritesList favorites={offers.slice().filter((offer) => offer.isFavorite)} />
+                      <FavoritesList favorites={favorites} />
                     </>
                   )
                   : (
@@ -43,7 +43,7 @@ function Favorites(): JSX.Element {
         </main>
 
         <footer className={`footer ${favoritesCount && 'container'}`}>
-          <Link className="footer__logo-link" to="main.html">
+          <Link className="footer__logo-link" to="/">
             <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
           </Link>
         </footer>

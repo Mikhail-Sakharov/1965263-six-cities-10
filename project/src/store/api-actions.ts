@@ -59,6 +59,18 @@ export const fetchCommentsAction = createAsyncThunk<Review[], number, {
   },
 );
 
+export const fetchFavoritesAction = createAsyncThunk<Offer[], undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/fetchFavorites',
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get<Offer[]>(`${APIRoute.Favorites}`);
+    return data;
+  },
+);
+
 export const postCommentAction = createAsyncThunk<Review[], CommentRequestBody, {
   dispatch: AppDispatch,
   state: State,
