@@ -1,27 +1,30 @@
-import {useState} from 'react';
+import {sortOptions, TAB_INDEX_VALUE} from '../../const';
 import {useAppSelector} from '../../hooks';
+import {getActiveSortOption} from '../../store/app-data/selectors';
 import SortOption from '../sort-option/sort-option';
 
-const tabIndexValue = 0;
-const sortOptions = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
+type SortOptionsListComponentProps = {
+  isSortMenuOpened: boolean;
+  setIsSortMenuOpened: (state: boolean) => void;
+};
 
-function SortOptionsList(): JSX.Element {
-  const [isOpened, setIsOpened] = useState(false);
-  const activeSortOption = useAppSelector((state) => state.activeSortOption);
+function SortOptionsList({isSortMenuOpened, setIsSortMenuOpened}: SortOptionsListComponentProps): JSX.Element {
+  const activeSortOption = useAppSelector(getActiveSortOption);
+
   const handleClickSortMenu = () => {
-    setIsOpened(!isOpened);
+    setIsSortMenuOpened(!isSortMenuOpened);
   };
 
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
-      <span className="places__sorting-type" tabIndex={tabIndexValue} onClick={handleClickSortMenu}>
+      <span className="places__sorting-type" tabIndex={TAB_INDEX_VALUE} onClick={handleClickSortMenu}>
         {activeSortOption}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      <ul className={`places__options places__options--custom ${isOpened && 'places__options--opened'}`}>
+      <ul className={`places__options places__options--custom ${isSortMenuOpened && 'places__options--opened'}`}>
         {
           sortOptions.map((sortOption) => <SortOption key={sortOption} sortOption={sortOption} onClickOption={handleClickSortMenu}/>)
         }

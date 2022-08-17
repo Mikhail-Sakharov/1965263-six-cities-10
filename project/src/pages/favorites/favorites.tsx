@@ -2,9 +2,10 @@ import {Link} from 'react-router-dom';
 import FavoritesList from '../../components/favorites-list/favorites-list';
 import Header from '../../components/header/header';
 import {useAppSelector} from '../../hooks';
+import {getOffers} from '../../store/app-data/selectors';
 
 function Favorites(): JSX.Element {
-  const {offers} = useAppSelector((state) => state);
+  const offers = useAppSelector(getOffers);
 
   return (
     <>

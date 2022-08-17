@@ -6,20 +6,29 @@ import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
 import Header from '../../components/header/header';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {useMemo} from 'react';
+import {memo, useEffect} from 'react';
 import {fetchCommentsAction, fetchNearestOffersAction, fetchSelectedOfferAction} from '../../store/api-actions';
+import {getComments, getNearestOffers, getSelectedOffer} from '../../store/app-data/selectors';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {setDataLoadedStatus} from '../../store/app-data/app-data';
 
 function Room(): JSX.Element {
-  const selectedOfferId = Number(useParams().id);
   const dispatch = useAppDispatch();
 
-  useMemo(() => {
+  const selectedOfferId = Number(useParams().id);
+
+  useEffect(() => {
+    dispatch(setDataLoadedStatus(true));
     dispatch(fetchSelectedOfferAction(selectedOfferId));
     dispatch(fetchNearestOffersAction(selectedOfferId));
     dispatch(fetchCommentsAction(selectedOfferId));
+    dispatch(setDataLoadedStatus(false));
   }, [dispatch, selectedOfferId]);
 
-  const {selectedOffer, nearestOffers, comments, authorizationStatus} = useAppSelector((state) => state);
+  const selectedOffer = useAppSelector(getSelectedOffer);
+  const nearestOffers = useAppSelector(getNearestOffers);
+  const comments = useAppSelector(getComments);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   return (
     <>
@@ -145,4 +154,4 @@ function Room(): JSX.Element {
   );
 }
 
-export default Room;
+export default memo(Room);

@@ -1,6 +1,6 @@
-import {MouseEvent, useMemo} from 'react';
+import {memo, MouseEvent, useMemo} from 'react';
 import {Link} from 'react-router-dom';
-import {imageWrapperClassNameMap, placeCardClassNameMap, RATING_COEFFICIENT} from '../../const';
+import {imageWrapperClassNameMap, listTypePathMap, placeCardClassNameMap, RATING_COEFFICIENT} from '../../const';
 import {Offer} from '../../types/offer';
 
 type PlaceCardComponentProps = {
@@ -43,7 +43,7 @@ function PlaceCard({listType, offer, onOfferItemHover}: PlaceCardComponentProps)
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`offer/${offer.id}`}>{offer.title}</Link>
+          <Link to={listTypePathMap[listType](offer.id)}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>
@@ -51,4 +51,4 @@ function PlaceCard({listType, offer, onOfferItemHover}: PlaceCardComponentProps)
   );
 }
 
-export default PlaceCard;
+export default memo(PlaceCard);

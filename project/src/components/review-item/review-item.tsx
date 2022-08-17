@@ -13,7 +13,7 @@ function ReviewItem({review}: ReviewComponentProps): JSX.Element {
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
           <img className="reviews__avatar user__avatar" src={`${review.user.avatarUrl}`} width="54" height="54" alt="Reviews avatar"/>
         </div>
-        <span className="reviews__user-name">
+        <span className="reviews__user-name" style={{textTransform: 'capitalize'}}>
           {review.user.name}
         </span>
       </div>

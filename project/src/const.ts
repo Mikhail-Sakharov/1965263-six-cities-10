@@ -3,7 +3,7 @@ export enum APIRoute {
   Favorites = '/favorite',
   Comments = '/comments',
   Login = '/login',
-  Logout = '/logout',
+  Logout = '/logout'
 }
 
 export enum AppRoute {
@@ -17,7 +17,12 @@ export enum AppRoute {
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
-  Unknown = 'UNKNOWN',
+  Unknown = 'UNKNOWN'
+}
+
+export enum NameSpace {
+  Data = 'DATA',
+  User = 'USER'
 }
 
 export const RATING_COEFFICIENT = 20;
@@ -41,6 +46,22 @@ export const imageWrapperClassNameMap = {
   room: 'near-places__image-wrapper place-card__image-wrapper',
 };
 
+export const ListType = {
+  MAIN: 'main',
+  ROOM: 'room'
+};
+
+export const listTypePathMap = {
+  [ListType.MAIN]: (id: number) => `offer/${id}`,
+  [ListType.ROOM]: (id: number) => `../offer/${id}`
+};
+
 export const cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
-export const TIMEOUT_SHOW_ERROR = 2000;
+export const TAB_INDEX_VALUE = 0;
+
+export const sortOptions = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
+
+export const COMMENT_MAX_LENGTH = 50;
+
+export const INITIAL_RATING_VALUE = 0;

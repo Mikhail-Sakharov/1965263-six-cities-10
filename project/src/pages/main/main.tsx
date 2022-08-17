@@ -3,9 +3,12 @@ import Header from '../../components/header/header';
 import CitiesList from '../../components/cities-list/cities-list';
 import MainEmpty from '../../components/main-empty/main-empty';
 import {useAppSelector} from '../../hooks';
+import {useState} from 'react';
+import {getOffers} from '../../store/app-data/selectors';
 
 function Main(): JSX.Element {
-  const {offers} = useAppSelector((state) => state);
+  const [isSortMenuOpened, setIsSortMenuOpened] = useState(false);
+  const offers = useAppSelector(getOffers);
 
   return (
     <>
@@ -20,11 +23,11 @@ function Main(): JSX.Element {
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
             <section className="locations container">
-              <CitiesList/>
+              <CitiesList setIsSortMenuOpened={setIsSortMenuOpened}/>
             </section>
           </div>
           <div className="cities">
-            {offers ? <PlacesContainer/> : <MainEmpty/>}
+            {offers ? <PlacesContainer isSortMenuOpened={isSortMenuOpened} setIsSortMenuOpened={setIsSortMenuOpened}/> : <MainEmpty/>}
           </div>
         </main>
       </div>
