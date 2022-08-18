@@ -10,14 +10,13 @@ import Logo from '../logo/logo';
 
 function Header(): JSX.Element {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const favorites = useAppSelector(getFavorites);
   const favoritesCount = favorites.length;
 
   const email = getEmail();
-
-  const navigate = useNavigate();
 
   const handleSignOutClick = () => {
     dispatch(logoutAction());

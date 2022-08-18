@@ -3,7 +3,15 @@ import {NameSpace} from '../../const';
 import {Offer} from '../../types/offer';
 import {Review} from '../../types/review';
 import {sortOffers} from '../../utils';
-import {fetchHotelsAction, fetchSelectedOfferAction, fetchNearestOffersAction, fetchCommentsAction, postCommentAction, fetchFavoritesAction, postFavoriteAction} from '../api-actions';
+import {
+  fetchHotelsAction,
+  fetchSelectedOfferAction,
+  fetchNearestOffersAction,
+  fetchCommentsAction,
+  postCommentAction,
+  fetchFavoritesAction,
+  postFavoriteAction
+} from '../api-actions';
 
 type InitalState = {
   city: string,
@@ -13,6 +21,7 @@ type InitalState = {
   nearestOffers: Offer[],
   comments: Review[],
   favorites: Offer[],
+  favorite: Offer | null,
   activeSortOption: string,
   defaultSortedOffers: Offer[],
   isDataLoaded: boolean
@@ -26,6 +35,7 @@ const initialState: InitalState = {
   nearestOffers: [],
   comments: [],
   favorites: [],
+  favorite: null,
   activeSortOption: 'Popular',
   defaultSortedOffers: [],
   isDataLoaded: false
@@ -91,7 +101,7 @@ export const appData = createSlice({
         state.isDataLoaded = true;
       }) */
       .addCase(postFavoriteAction.fulfilled, (state, action) => {
-        state.favorites = action.payload;
+        state.favorite = action.payload;
         //state.isDataLoaded = false;
       })
       .addCase(postCommentAction.pending, (state) => {
