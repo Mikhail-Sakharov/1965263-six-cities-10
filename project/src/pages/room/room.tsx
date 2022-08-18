@@ -7,7 +7,14 @@ import OffersList from '../../components/offers-list/offers-list';
 import Header from '../../components/header/header';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {memo, useEffect} from 'react';
-import {fetchCommentsAction, fetchNearestOffersAction, fetchSelectedOfferAction} from '../../store/api-actions';
+import {
+  fetchCommentsAction,
+  fetchFavoritesAction,
+  fetchHotelsAction,
+  fetchNearestOffersAction,
+  fetchSelectedOfferAction,
+  postFavoriteAction
+} from '../../store/api-actions';
 import {getComments, getNearestOffers, getSelectedOffer} from '../../store/app-data/selectors';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {setDataLoadedStatus} from '../../store/app-data/app-data';
@@ -29,6 +36,20 @@ function Room(): JSX.Element {
   const nearestOffers = useAppSelector(getNearestOffers);
   const comments = useAppSelector(getComments);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
+
+  const postFavoriteStatus = Number(!selectedOffer?.isFavorite) as 0 | 1;
+
+  const handleFavoriteClick = () => {
+    dispatch(setDataLoadedStatus(true));
+    dispatch(postFavoriteAction({
+      offerId: selectedOfferId,
+      postFavoriteStatus
+    }));
+    dispatch(fetchSelectedOfferAction(selectedOfferId));
+    dispatch(fetchFavoritesAction());
+    dispatch(fetchHotelsAction());
+    dispatch(setDataLoadedStatus(false));
+  };
 
   return (
     <>
@@ -65,7 +86,7 @@ function Room(): JSX.Element {
                   <h1 className="property__name">
                     {selectedOffer?.title}
                   </h1>
-                  <button className="property__bookmark-button button" type="button">
+                  <button className={`property__bookmark-button button ${selectedOffer?.isFavorite && 'property__bookmark-button--active'}`} type="button" onClick={handleFavoriteClick}>
                     <svg className="property__bookmark-icon" width="31" height="33">
                       <use xlinkHref="#icon-bookmark"></use>
                     </svg>

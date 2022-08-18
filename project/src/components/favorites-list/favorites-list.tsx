@@ -1,4 +1,6 @@
 import {Link} from 'react-router-dom';
+import {useAppDispatch} from '../../hooks';
+import {changeCityAction} from '../../store/app-data/app-data';
 import {Offer} from '../../types/offer';
 import FavoritesCard from '../favorites-card/favorites-card';
 
@@ -11,6 +13,8 @@ function FavoritesList({favorites}: FavoritesListComponentProps): JSX.Element {
   const cityNamesSet = new Set(favorites.map((favorite) => favorite.city.name));
   cityNamesSet.forEach((cityName) => favoritesMap.set(cityName, [...favorites].filter((favorite) => favorite.city.name === cityName)));
 
+  const dispatch = useAppDispatch();
+
   return (
     <ul className="favorites__list">
       {
@@ -18,7 +22,7 @@ function FavoritesList({favorites}: FavoritesListComponentProps): JSX.Element {
           (
             <li key={favorite[0]} className="favorites__locations-items">
               <div className="favorites__locations locations locations--current">
-                <div className="locations__item">
+                <div className="locations__item" onClick={() => dispatch(changeCityAction(favorite[0]))}>
                   <Link className="locations__item-link" to="/">
                     <span>{favorite[0]}</span>
                   </Link>
@@ -28,7 +32,7 @@ function FavoritesList({favorites}: FavoritesListComponentProps): JSX.Element {
                 {
                   favorite[1].map((favoriteOffer: Offer) =>
                     (
-                      <FavoritesCard key={favoriteOffer.id} favoritesCard={favoriteOffer}/>
+                      <FavoritesCard key={favoriteOffer.id} favoriteOffer={favoriteOffer}/>
                     )
                   )
                 }
