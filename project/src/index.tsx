@@ -6,7 +6,9 @@ import {store} from './store';
 import {checkAuthAction, fetchFavoritesAction, fetchHotelsAction} from './store/api-actions';
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {setDataLoadedStatus} from './store/app-data/app-data';
 
+store.dispatch(setDataLoadedStatus(true));
 store.dispatch(fetchHotelsAction());
 store.dispatch(fetchFavoritesAction());
 store.dispatch(checkAuthAction());

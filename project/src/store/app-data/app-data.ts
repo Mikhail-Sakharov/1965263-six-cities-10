@@ -9,8 +9,7 @@ import {
   fetchNearestOffersAction,
   fetchCommentsAction,
   postCommentAction,
-  fetchFavoritesAction,
-  postFavoriteAction
+  fetchFavoritesAction
 } from '../api-actions';
 
 type InitalState = {
@@ -21,7 +20,6 @@ type InitalState = {
   nearestOffers: Offer[],
   comments: Review[],
   favorites: Offer[],
-  favorite: Offer | null,
   activeSortOption: string,
   defaultSortedOffers: Offer[],
   isDataLoaded: boolean
@@ -35,7 +33,6 @@ const initialState: InitalState = {
   nearestOffers: [],
   comments: [],
   favorites: [],
-  favorite: null,
   activeSortOption: 'Popular',
   defaultSortedOffers: [],
   isDataLoaded: false
@@ -61,55 +58,26 @@ export const appData = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchHotelsAction.pending, (state) => {
-        state.isDataLoaded = true;
-      })
       .addCase(fetchHotelsAction.fulfilled, (state, action) => {
         state.offers = action.payload;
         state.selectedCityOffers = state.offers.filter((offer) => offer.city.name === state.city);
         state.isDataLoaded = false;
       })
-      .addCase(fetchSelectedOfferAction.pending, (state) => {
-        //state.isDataLoaded = true;//
-      })
       .addCase(fetchSelectedOfferAction.fulfilled, (state, action) => {
         state.selectedOffer = action.payload;
-        //state.isDataLoaded = false;
       })
-      /* .addCase(fetchNearestOffersAction.pending, (state) => {
-        state.isDataLoaded = true;
-      }) */
       .addCase(fetchNearestOffersAction.fulfilled, (state, action) => {
         state.nearestOffers = action.payload;
-        //state.isDataLoaded = false;
       })
-      /* .addCase(fetchCommentsAction.pending, (state) => {
-        state.isDataLoaded = true;
-      }) */
       .addCase(fetchCommentsAction.fulfilled, (state, action) => {
         state.comments = action.payload;
-        //state.isDataLoaded = false;//
+        state.isDataLoaded = false;
       })
-      /* .addCase(fetchFavoritesAction.pending, (state, action) => {
-        state.isDataLoaded = true;
-      }) */
       .addCase(fetchFavoritesAction.fulfilled, (state, action) => {
         state.favorites = action.payload;
-        //state.isDataLoaded = false;
-      })
-      /* .addCase(postFavoriteAction.pending, (state) => {
-        state.isDataLoaded = true;
-      }) */
-      .addCase(postFavoriteAction.fulfilled, (state, action) => {
-        state.favorite = action.payload;
-        //state.isDataLoaded = false;
-      })
-      .addCase(postCommentAction.pending, (state) => {
-        state.isDataLoaded = true;
       })
       .addCase(postCommentAction.fulfilled, (state, action) => {
         state.comments = action.payload;
-        state.isDataLoaded = false;
       });
   }
 });

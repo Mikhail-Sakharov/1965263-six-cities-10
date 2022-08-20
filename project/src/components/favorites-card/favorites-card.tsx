@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom';
 import {RATING_COEFFICIENT} from '../../const';
 import {useAppDispatch} from '../../hooks';
 import {postFavoriteAction, fetchFavoritesAction, fetchHotelsAction} from '../../store/api-actions';
-import {setDataLoadedStatus} from '../../store/app-data/app-data';
+import { changeCityAction } from '../../store/app-data/app-data';
 import {Offer} from '../../types/offer';
 
 type FavoritesCardComponentProps = {
@@ -15,14 +15,16 @@ function FavoritesCard({favoriteOffer}: FavoritesCardComponentProps): JSX.Elemen
   const postFavoriteStatus = Number(!favoriteOffer.isFavorite) as 0 | 1;
 
   const handleFavoriteClick = () => {
-    dispatch(setDataLoadedStatus(true));
     dispatch(postFavoriteAction({
       offerId: favoriteOffer.id,
       postFavoriteStatus
     }));
     dispatch(fetchFavoritesAction());
     dispatch(fetchHotelsAction());
-    dispatch(setDataLoadedStatus(false));
+  };
+
+  const handlePlaceCardTitleClick = () => {
+    dispatch(changeCityAction(favoriteOffer.city.name));
   };
 
   return (
@@ -51,7 +53,7 @@ function FavoritesCard({favoriteOffer}: FavoritesCardComponentProps): JSX.Elemen
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <h2 className="place-card__name">
+        <h2 className="place-card__name" onClick={handlePlaceCardTitleClick}>
           <Link to={`../offer/${favoriteOffer.id}`}>{favoriteOffer.title}</Link>
         </h2>
         <p className="place-card__type">{favoriteOffer.type}</p>

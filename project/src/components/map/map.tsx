@@ -12,9 +12,8 @@ type MapProps = {
 };
 
 function Map({offers, selectedOffer, className}: MapProps): JSX.Element | null {
-  const city = offers[0].city;
   const mapRef = useRef<HTMLElement | null>(null);
-  const map = useMap(mapRef, city);
+  const map = useMap(mapRef);
 
   const defaultCustomIcon = leaflet.icon({
     iconUrl: URL_MARKER_DEFAULT,

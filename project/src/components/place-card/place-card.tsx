@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom';
 import {imageWrapperClassNameMap, listTypePathMap, placeCardClassNameMap, RATING_COEFFICIENT} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {fetchFavoritesAction, fetchHotelsAction, fetchNearestOffersAction, postFavoriteAction} from '../../store/api-actions';
-import {setDataLoadedStatus} from '../../store/app-data/app-data';
 import {getSelectedOffer} from '../../store/app-data/selectors';
 import {Offer} from '../../types/offer';
 
@@ -27,7 +26,6 @@ function PlaceCard({listType, offer, onOfferItemHover}: PlaceCardComponentProps)
   })), [offerId, onOfferItemHover]);
 
   const handleFavoriteClick = () => {
-    dispatch(setDataLoadedStatus(true));
     dispatch(postFavoriteAction({
       offerId,
       postFavoriteStatus
@@ -35,7 +33,6 @@ function PlaceCard({listType, offer, onOfferItemHover}: PlaceCardComponentProps)
     dispatch(fetchFavoritesAction());
     dispatch(fetchHotelsAction());
     listType === 'room' && selectedOfferId && dispatch(fetchNearestOffersAction(selectedOfferId));
-    dispatch(setDataLoadedStatus(false));
   };
 
   return (
