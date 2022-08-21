@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {NameSpace} from '../../const';
+import {cities, NameSpace} from '../../const';
 import {Offer} from '../../types/offer';
 import {Review} from '../../types/review';
 import {sortOffers} from '../../utils';
@@ -44,9 +44,9 @@ export const appData = createSlice({
   reducers: {
     changeCityAction: (state, action) => {
       state.activeSortOption = 'Popular';
-      state.city = action.payload;
-      state.selectedCityOffers = state.offers.filter((offer) => offer.city.name === state.city);
-      state.defaultSortedOffers = state.offers.filter((offer) => offer.city.name === state.city);
+      state.city = cities.includes(action.payload) ? action.payload : state.city;
+      state.selectedCityOffers = cities.includes(action.payload) ? state.offers.slice().filter((offer) => offer.city.name === action.payload) : state.selectedCityOffers;
+      state.defaultSortedOffers = cities.includes(action.payload) ? state.offers.slice().filter((offer) => offer.city.name === action.payload) : state.defaultSortedOffers;
     },
     changeSortTypeAction: (state, action) => {
       state.activeSortOption = action.payload;
