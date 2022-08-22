@@ -7,6 +7,8 @@ import {checkAuthAction, fetchFavoritesAction, fetchHotelsAction} from './store/
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {setDataLoadedStatus} from './store/app-data/app-data';
+import browserHistory from './browser-history';
+import HistoryRouter from './components/history-route/history-route';
 
 store.dispatch(setDataLoadedStatus(true));
 store.dispatch(fetchHotelsAction());
@@ -18,10 +20,12 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <Provider store = {store}>
-    <React.StrictMode>
-      <ToastContainer/>
-      <App/>
-    </React.StrictMode>
-  </Provider>
+  <React.StrictMode>
+    <Provider store = {store}>
+      <HistoryRouter history={browserHistory}>
+        <ToastContainer />
+        <App />
+      </HistoryRouter>
+    </Provider>
+  </React.StrictMode>
 );
