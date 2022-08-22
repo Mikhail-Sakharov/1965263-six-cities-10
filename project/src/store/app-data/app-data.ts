@@ -61,6 +61,7 @@ export const appData = createSlice({
       .addCase(fetchHotelsAction.fulfilled, (state, action) => {
         state.offers = action.payload;
         state.selectedCityOffers = state.offers.filter((offer) => offer.city.name === state.city);
+        state.defaultSortedOffers = state.offers.filter((offer) => offer.city.name === state.city);
         state.isDataLoaded = false;
       })
       .addCase(fetchSelectedOfferAction.fulfilled, (state, action) => {
