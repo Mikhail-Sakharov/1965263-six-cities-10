@@ -8,8 +8,6 @@ import NotFoundPage from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
 import {useAppSelector} from '../../hooks';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
-import HistoryRouter from '../history-route/history-route';
-import browserHistory from '../../browser-history';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {getDataLoadedStatus} from '../../store/app-data/selectors';
 
@@ -25,34 +23,32 @@ function App(): JSX.Element {
   }
 
   return (
-    <HistoryRouter history={browserHistory}>
-      <Routes>
-        <Route
-          path={AppRoute.Main}
-          element={<Main/>}
-        />
-        <Route
-          path={AppRoute.Login}
-          element={<Login/>}
-        />
-        <Route
-          path={AppRoute.Favorites}
-          element={
-            <PrivateRoute authorizationStatus={authorizationStatus}>
-              <Favorites/>
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path={AppRoute.Room}
-          element={<Room/>}
-        />
-        <Route
-          path={AppRoute.NotFound}
-          element={<NotFoundPage/>}
-        />
-      </Routes>
-    </HistoryRouter>
+    <Routes>
+      <Route
+        path={AppRoute.Main}
+        element={<Main/>}
+      />
+      <Route
+        path={AppRoute.Login}
+        element={<Login/>}
+      />
+      <Route
+        path={AppRoute.Favorites}
+        element={
+          <PrivateRoute authorizationStatus={authorizationStatus}>
+            <Favorites/>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path={AppRoute.Room}
+        element={<Room/>}
+      />
+      <Route
+        path={AppRoute.NotFound}
+        element={<NotFoundPage/>}
+      />
+    </Routes>
   );
 }
 
