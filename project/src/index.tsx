@@ -23,8 +23,8 @@ root.render(
   <React.StrictMode>
     <Provider store = {store}>
       <HistoryRouter history={browserHistory}>
-        <ToastContainer />
-        <App />
+        <ToastContainer/>
+        <App/>
       </HistoryRouter>
     </Provider>
   </React.StrictMode>

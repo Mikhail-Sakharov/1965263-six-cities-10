@@ -57,9 +57,24 @@ describe('Application Routing', () => {
   });
 
   it('should render "Login" page when user navigates to "/login"', async () => {
+    const storeForLoginRenderTest = mockStore({
+      USER: {
+        authorizationStatus: AuthorizationStatus.NoAuth
+      },
+      DATA: {
+        isDataLoaded: false
+      }
+    });
+    const fakeAppForLoginRenderTest = (
+      <Provider store={storeForLoginRenderTest}>
+        <HistoryRouter history={history}>
+          <App/>
+        </HistoryRouter>
+      </Provider>
+    );
     history.push(AppRoute.Login);
 
-    render(fakeApp);
+    render(fakeAppForLoginRenderTest);
 
     expect(screen.getByText(/Amsterdam/i)).toBeInTheDocument();
     expect(screen.getByTestId('login')).toBeInTheDocument();
