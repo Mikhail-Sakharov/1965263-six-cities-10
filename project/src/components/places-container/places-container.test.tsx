@@ -5,7 +5,7 @@ import {createMemoryHistory} from 'history';
 import HistoryRouter from '../../components/history-route/history-route';
 import PlacesContainer from './places-container';
 import {offers} from '../../mocks/offers';
-import {AppRoute} from '../../const';
+import {AppRoute, AuthorizationStatus} from '../../const';
 
 const mockOffer = offers[0];
 const mockStore = configureMockStore();
@@ -13,6 +13,9 @@ const store = mockStore({
   DATA: {
     city: mockOffer.city.name,
     selectedCityOffers: offers.filter((offer) => offer.city.name === mockOffer.city.name)
+  },
+  USER: {
+    authorizationStatus: AuthorizationStatus.Auth
   }
 });
 const history = createMemoryHistory();

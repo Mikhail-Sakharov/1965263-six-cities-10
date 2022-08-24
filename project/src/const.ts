@@ -62,6 +62,11 @@ export const TAB_INDEX_VALUE = 0;
 
 export const sortOptions = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
 
-export const COMMENT_MAX_LENGTH = 50;
+export const CommentLength = {
+  MIN: 50,
+  MAX: 300
+};
 
 export const INITIAL_RATING_VALUE = 0;
+
+export const ratingValues = [5, 4, 3, 2, 1];

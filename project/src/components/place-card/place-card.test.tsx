@@ -5,12 +5,13 @@ import HistoryRouter from '../../components/history-route/history-route';
 import {offers} from '../../mocks/offers';
 import PlaceCard from './place-card';
 import {Provider} from 'react-redux';
-import {AppRoute} from '../../const';
+import {AppRoute, AuthorizationStatus} from '../../const';
 
 const mockOffer = offers[0];
 const mockStore = configureMockStore();
 const store = mockStore({
-  DATA: {selectedOffer: offers[0]}
+  DATA: {selectedOffer: offers[0]},
+  USER: {authorizationStatus: AuthorizationStatus.Auth}
 });
 const history = createMemoryHistory();
 
