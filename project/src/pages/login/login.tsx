@@ -1,11 +1,15 @@
 import {FormEvent, useRef} from 'react';
 import {Link} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
+import {cities} from '../../const';
 import {useAppDispatch} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
+import {changeCityAction} from '../../store/app-data/app-data';
 import {AuthData} from '../../types/auth-data';
+import {getRandom} from '../../utils';
 
 function Login(): JSX.Element {
+  const randomCity = cities[getRandom(cities.length - 1)];
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
@@ -50,19 +54,19 @@ function Login(): JSX.Element {
               <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">E-mail</label>
-                  <input data-testid="login" className="login__input form__input" type="email" name="email" ref={emailRef} placeholder="Email" required/>
+                  <input pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" data-testid="login" className="login__input form__input" type="email" name="email" ref={emailRef} placeholder="Email" required/>
                 </div>
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">Password</label>
-                  <input data-testid="password" className="login__input form__input" type="password" name="password" ref={passwordRef} placeholder="Password" required/>
+                  <input pattern=".*\d+.*[a-zA-Z]+.*|.*[a-zA-Z]+.*\d+.*" data-testid="password" className="login__input form__input" type="password" name="password" ref={passwordRef} placeholder="Password" required/>
                 </div>
                 <button data-testid="submitButton"className="login__submit form__submit button" type="submit">Sign in</button>
               </form>
             </section>
             <section className="locations locations--login locations--current">
-              <div className="locations__item">
+              <div className="locations__item" onClick={() => dispatch(changeCityAction(randomCity))}>
                 <Link className="locations__item-link" to="/">
-                  <span>Amsterdam</span>
+                  <span>{randomCity}</span>
                 </Link>
               </div>
             </section>

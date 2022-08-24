@@ -76,7 +76,6 @@ describe('Application Routing', () => {
 
     render(fakeAppForLoginRenderTest);
 
-    expect(screen.getByText(/Amsterdam/i)).toBeInTheDocument();
     expect(screen.getByTestId('login')).toBeInTheDocument();
     expect(screen.getByTestId('password')).toBeInTheDocument();
     expect(screen.getByTestId('submitButton')).toBeInTheDocument();
