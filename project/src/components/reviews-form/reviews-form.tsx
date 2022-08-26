@@ -14,13 +14,14 @@ function ReviewsForm({offerId}: ReviewsFormComponentProps): JSX.Element {
   const [rating, setRating] = useState<number>(INITIAL_RATING_VALUE);
   const isSubmitButtonDisabled = comment.length < CommentLength.MIN || comment.length > CommentLength.MAX || rating === INITIAL_RATING_VALUE;
 
-  const handleFormSubmit = (evt: FormEvent) => {
+  const handleFormSubmit = async (evt: FormEvent) => {
     evt.preventDefault();
-    dispatch(postCommentAction({
+    await dispatch(postCommentAction({
       offerId,
       comment,
       rating
     }));
+
     setComment('');
     setRating(INITIAL_RATING_VALUE);
   };
