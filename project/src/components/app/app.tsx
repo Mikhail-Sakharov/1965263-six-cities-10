@@ -30,7 +30,11 @@ function App(): JSX.Element {
       />
       <Route
         path={AppRoute.Login}
-        element={<Login/>}
+        element={
+          authorizationStatus !== AuthorizationStatus.Auth
+            ? <Login/>
+            : <Main/>
+        }
       />
       <Route
         path={AppRoute.Favorites}

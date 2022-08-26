@@ -1,9 +1,10 @@
 import {memo, MouseEvent, useMemo} from 'react';
-import {Link} from 'react-router-dom';
-import {imageWrapperClassNameMap, listTypePathMap, placeCardClassNameMap, RATING_COEFFICIENT} from '../../const';
+import {Link, useNavigate} from 'react-router-dom';
+import {AppRoute, AuthorizationStatus, imageWrapperClassNameMap, listTypePathMap, placeCardClassNameMap, RATING_COEFFICIENT} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {fetchFavoritesAction, fetchHotelsAction, fetchNearestOffersAction, postFavoriteAction} from '../../store/api-actions';
 import {getSelectedOffer} from '../../store/app-data/selectors';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {Offer} from '../../types/offer';
 
 type PlaceCardComponentProps = {
@@ -14,11 +15,14 @@ type PlaceCardComponentProps = {
 
 function PlaceCard({listType, offer, onOfferItemHover}: PlaceCardComponentProps): JSX.Element {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const offerId = offer.id;
   const postFavoriteStatus = Number(!offer.isFavorite) as 0 | 1;
 
   const selectedOfferId = useAppSelector(getSelectedOffer)?.id;
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isUserAuthorized = authorizationStatus === AuthorizationStatus.Auth;
 
   const handleOfferItemHover = useMemo(() => (onOfferItemHover && ((evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();
@@ -26,6 +30,10 @@ function PlaceCard({listType, offer, onOfferItemHover}: PlaceCardComponentProps)
   })), [offerId, onOfferItemHover]);
 
   const handleFavoriteClick = () => {
+    if (!isUserAuthorized) {
+      navigate(AppRoute.Login);
+      return;
+    }
     dispatch(postFavoriteAction({
       offerId,
       postFavoriteStatus
@@ -48,7 +56,7 @@ function PlaceCard({listType, offer, onOfferItemHover}: PlaceCardComponentProps)
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button onClick={handleFavoriteClick} className={`place-card__bookmark-button button ${offer.isFavorite && 'place-card__bookmark-button--active'}`} type="button">
+          <button onClick={handleFavoriteClick} className={`place-card__bookmark-button button ${offer.isFavorite && isUserAuthorized && 'place-card__bookmark-button--active'}`} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>

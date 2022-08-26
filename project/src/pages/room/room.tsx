@@ -1,5 +1,5 @@
-import {useParams} from 'react-router-dom';
-import {AuthorizationStatus, RATING_COEFFICIENT} from '../../const';
+import {useNavigate, useParams} from 'react-router-dom';
+import {AppRoute, AuthorizationStatus, RATING_COEFFICIENT} from '../../const';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Map from '../../components/map/map';
@@ -19,19 +19,28 @@ import {getComments, getNearestOffers, getSelectedOffer} from '../../store/app-d
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import LoadingScreen from '../loading-screen/loading-screen';
 
+const COMMENTS_MAX_COUNT = 10;
+
 function Room(): JSX.Element {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const selectedOfferId = Number(useParams().id);
 
   const selectedOffer = useAppSelector(getSelectedOffer);
   const nearestOffers = useAppSelector(getNearestOffers);
-  const comments = useAppSelector(getComments);
+  const comments = useAppSelector(getComments).slice(0, COMMENTS_MAX_COUNT);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
+
+  const isUserAuthorized = authorizationStatus === AuthorizationStatus.Auth;
 
   const postFavoriteStatus = Number(!selectedOffer?.isFavorite) as 0 | 1;
 
   const handleFavoriteClick = () => {
+    if (!isUserAuthorized) {
+      navigate(AppRoute.Login);
+      return;
+    }
     dispatch(postFavoriteAction({
       offerId: selectedOfferId,
       postFavoriteStatus
@@ -82,7 +91,7 @@ function Room(): JSX.Element {
                   <h1 className="property__name">
                     {selectedOffer?.title}
                   </h1>
-                  <button className={`property__bookmark-button button ${selectedOffer?.isFavorite && 'property__bookmark-button--active'}`} type="button" onClick={handleFavoriteClick}>
+                  <button className={`property__bookmark-button button ${isUserAuthorized && selectedOffer?.isFavorite && 'property__bookmark-button--active'}`} type="button" onClick={handleFavoriteClick}>
                     <svg className="property__bookmark-icon" width="31" height="33">
                       <use xlinkHref="#icon-bookmark"></use>
                     </svg>

@@ -35,3 +35,7 @@ export function sortOffers(stateOffers: Offer[], defaultSortedOffers: Offer[], s
       return defaultSortedOffers;
   }
 }
+
+export function getRandom(value: number): number {
+  return Math.round(0 + (Math.abs(value) - 0) * Math.random());
+}
