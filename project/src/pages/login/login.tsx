@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import {cities} from '../../const';
 import {useAppDispatch} from '../../hooks';
-import {loginAction} from '../../store/api-actions';
+import {fetchFavoritesAction, fetchHotelsAction, loginAction} from '../../store/api-actions';
 import {changeCityAction} from '../../store/app-data/app-data';
 import {AuthData} from '../../types/auth-data';
 import {getRandom} from '../../utils';
@@ -15,8 +15,10 @@ function Login(): JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  const onSubmit = (authData: AuthData) => {
-    dispatch(loginAction(authData));
+  const onSubmit = async (authData: AuthData) => {
+    await dispatch(loginAction(authData));
+    dispatch(fetchHotelsAction());
+    dispatch(fetchFavoritesAction());
   };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {

@@ -29,17 +29,19 @@ function PlaceCard({listType, offer, onOfferItemHover}: PlaceCardComponentProps)
     onOfferItemHover(offerId);
   })), [offerId, onOfferItemHover]);
 
-  const handleFavoriteClick = () => {
+  const handleFavoriteClick = async () => {
     if (!isUserAuthorized) {
       navigate(AppRoute.Login);
       return;
     }
-    dispatch(postFavoriteAction({
-      offerId,
-      postFavoriteStatus
-    }));
-    dispatch(fetchFavoritesAction());
-    dispatch(fetchHotelsAction());
+    if (isUserAuthorized) {
+      await dispatch(postFavoriteAction({
+        offerId,
+        postFavoriteStatus
+      }));
+      dispatch(fetchFavoritesAction());
+      dispatch(fetchHotelsAction());
+    }
     listType === 'room' && selectedOfferId && dispatch(fetchNearestOffersAction(selectedOfferId));
   };
 

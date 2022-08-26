@@ -14,13 +14,13 @@ function FavoritesCard({favoriteOffer}: FavoritesCardComponentProps): JSX.Elemen
 
   const postFavoriteStatus = Number(!favoriteOffer.isFavorite) as 0 | 1;
 
-  const handleFavoriteClick = () => {
-    dispatch(postFavoriteAction({
+  const handleFavoriteClick = async () => {
+    await dispatch(postFavoriteAction({
       offerId: favoriteOffer.id,
       postFavoriteStatus
     }));
-    dispatch(fetchFavoritesAction());
     dispatch(fetchHotelsAction());
+    dispatch(fetchFavoritesAction());
   };
 
   const handlePlaceCardTitleClick = () => {

@@ -2,7 +2,7 @@ import {Link, useNavigate} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getEmail} from '../../services/email';
-import {logoutAction} from '../../store/api-actions';
+import {fetchHotelsAction, logoutAction} from '../../store/api-actions';
 import {changeCityAction} from '../../store/app-data/app-data';
 import {getFavorites} from '../../store/app-data/selectors';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
@@ -18,8 +18,9 @@ function Header(): JSX.Element {
 
   const email = getEmail();
 
-  const handleSignOutClick = () => {
-    dispatch(logoutAction());
+  const handleSignOutClick = async () => {
+    await dispatch(logoutAction());
+    dispatch(fetchHotelsAction());
     dispatch(changeCityAction('Paris'));
   };
 

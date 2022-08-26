@@ -36,18 +36,20 @@ function Room(): JSX.Element {
 
   const postFavoriteStatus = Number(!selectedOffer?.isFavorite) as 0 | 1;
 
-  const handleFavoriteClick = () => {
+  const handleFavoriteClick = async () => {
     if (!isUserAuthorized) {
       navigate(AppRoute.Login);
       return;
     }
-    dispatch(postFavoriteAction({
-      offerId: selectedOfferId,
-      postFavoriteStatus
-    }));
-    dispatch(fetchSelectedOfferAction(selectedOfferId));
-    dispatch(fetchFavoritesAction());
-    dispatch(fetchHotelsAction());
+    if (isUserAuthorized) {
+      await dispatch(postFavoriteAction({
+        offerId: selectedOfferId,
+        postFavoriteStatus
+      }));
+      dispatch(fetchSelectedOfferAction(selectedOfferId));
+      dispatch(fetchFavoritesAction());
+      dispatch(fetchHotelsAction());
+    }
   };
 
   useLayoutEffect(() => {
