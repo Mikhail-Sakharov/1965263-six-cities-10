@@ -1,7 +1,7 @@
 import {render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
 import HistoryRouter from '../../components/history-route/history-route';
-import NotFoundPage from './not-found';
+import NotFound from './not-found';
 
 describe('Component: NotFoundPage', () => {
   it('should render correctly', () => {
@@ -9,7 +9,7 @@ describe('Component: NotFoundPage', () => {
 
     render(
       <HistoryRouter history={history}>
-        <NotFoundPage/>
+        <NotFound/>
       </HistoryRouter>,
     );
 

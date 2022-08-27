@@ -4,7 +4,7 @@ import Main from '../../pages/main/main';
 import Login from '../../pages/login/login';
 import Favorites from '../../pages/favorites/favorites';
 import Room from '../../pages/room/room';
-import NotFoundPage from '../../pages/not-found/not-found';
+import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
 import {useAppSelector} from '../../hooks';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
@@ -50,7 +50,7 @@ function App(): JSX.Element {
       />
       <Route
         path={AppRoute.NotFound}
-        element={<NotFoundPage/>}
+        element={<NotFound/>}
       />
     </Routes>
   );
