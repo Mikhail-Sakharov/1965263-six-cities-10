@@ -9,8 +9,6 @@ export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      immutableCheck: false,
-      serializableCheck: false,
       thunk: {
         extraArgument: api
       }

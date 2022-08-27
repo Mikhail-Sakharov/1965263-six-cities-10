@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 
-function NotFoundPage(): JSX.Element {
+function NotFound(): JSX.Element {
   return (
     <div className="not-found__status-wrapper">
       <Logo/>
@@ -15,4 +15,4 @@ function NotFoundPage(): JSX.Element {
   );
 }
 
-export default NotFoundPage;
+export default NotFound;
