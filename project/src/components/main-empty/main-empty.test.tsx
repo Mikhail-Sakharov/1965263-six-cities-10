@@ -2,7 +2,7 @@ import {configureMockStore} from '@jedmao/redux-mock-store';
 import {render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
 import { Provider } from 'react-redux';
-import HistoryRouter from '../../components/history-route/history-route';
+import HistoryRoute from '../../components/history-route/history-route';
 import MainEmpty from './main-empty';
 
 const mockStore = configureMockStore();
@@ -18,9 +18,9 @@ describe('Component: MainEmpty', () => {
 
     render(
       <Provider store={store}>
-        <HistoryRouter history={history}>
+        <HistoryRoute history={history}>
           <MainEmpty/>
-        </HistoryRouter>
+        </HistoryRoute>
       </Provider>
     );
 

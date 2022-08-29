@@ -2,7 +2,7 @@ import {configureMockStore} from '@jedmao/redux-mock-store';
 import {Provider} from 'react-redux';
 import {render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
-import HistoryRouter from '../../components/history-route/history-route';
+import HistoryRoute from '../../components/history-route/history-route';
 import {AppRoute} from '../../const';
 import SortOptionsList from './sort-options-list';
 
@@ -22,9 +22,9 @@ describe('Component: SortOptionsList', () => {
 
     render(
       <Provider store={store}>
-        <HistoryRouter history={history}>
+        <HistoryRoute history={history}>
           <SortOptionsList isSortMenuOpened={isSortMenuOpened} setIsSortMenuOpened={setIsSortMenuOpened}/>
-        </HistoryRouter>
+        </HistoryRoute>
       </Provider>
     );
 

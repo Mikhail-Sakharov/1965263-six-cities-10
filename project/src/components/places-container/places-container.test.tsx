@@ -2,7 +2,7 @@ import {configureMockStore} from '@jedmao/redux-mock-store';
 import {Provider} from 'react-redux';
 import {render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
-import HistoryRouter from '../../components/history-route/history-route';
+import HistoryRoute from '../../components/history-route/history-route';
 import PlacesContainer from './places-container';
 import {offers} from '../../mocks/offers';
 import {AppRoute, AuthorizationStatus} from '../../const';
@@ -28,9 +28,9 @@ describe('Component: PlacesContainer', () => {
 
     render(
       <Provider store={store}>
-        <HistoryRouter history={history}>
+        <HistoryRoute history={history}>
           <PlacesContainer isSortMenuOpened={isSortMenuOpened} setIsSortMenuOpened={setIsSortMenuOpened}/>
-        </HistoryRouter>
+        </HistoryRoute>
       </Provider>
     );
 

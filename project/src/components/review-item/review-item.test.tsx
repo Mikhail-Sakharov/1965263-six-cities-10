@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
-import HistoryRouter from '../../components/history-route/history-route';
+import HistoryRoute from '../../components/history-route/history-route';
 import {AppRoute} from '../../const';
 import {reviews} from '../../mocks/reviews';
 import ReviewItem from './review-item';
@@ -12,9 +12,9 @@ describe('Component: ReviewItem', () => {
     const mockReview = reviews[0];
 
     render(
-      <HistoryRouter history={history}>
+      <HistoryRoute history={history}>
         <ReviewItem review={mockReview}/>
-      </HistoryRouter>
+      </HistoryRoute>
     );
 
     const nameElement = screen.getByText(/Isaac/i);

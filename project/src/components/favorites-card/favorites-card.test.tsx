@@ -2,7 +2,7 @@ import {configureMockStore} from '@jedmao/redux-mock-store';
 import {render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
 import {Provider} from 'react-redux';
-import HistoryRouter from '../../components/history-route/history-route';
+import HistoryRoute from '../../components/history-route/history-route';
 import {offers} from '../../mocks/offers';
 import FavoritesCard from './favorites-card';
 
@@ -15,9 +15,9 @@ describe('Component: FavoritesCard', () => {
 
     render(
       <Provider store={mockStore({})}>
-        <HistoryRouter history={history}>
+        <HistoryRoute history={history}>
           <FavoritesCard favoriteOffer={mockFavoriteOffer}/>
-        </HistoryRouter>
+        </HistoryRoute>
       </Provider>
     );
 

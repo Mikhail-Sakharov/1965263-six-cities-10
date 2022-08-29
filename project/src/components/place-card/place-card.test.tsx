@@ -1,7 +1,7 @@
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
-import HistoryRouter from '../../components/history-route/history-route';
+import HistoryRoute from '../../components/history-route/history-route';
 import {offers} from '../../mocks/offers';
 import PlaceCard from './place-card';
 import {Provider} from 'react-redux';
@@ -22,9 +22,9 @@ describe('Component: PlaceCard', () => {
 
     render(
       <Provider store={store}>
-        <HistoryRouter history={history}>
+        <HistoryRoute history={history}>
           <PlaceCard listType={'main'} offer={mockOffer} onOfferItemHover={onOfferItemHover}/>
-        </HistoryRouter>
+        </HistoryRoute>
       </Provider>
     );
 
