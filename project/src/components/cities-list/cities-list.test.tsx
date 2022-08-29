@@ -2,7 +2,7 @@ import {configureMockStore} from '@jedmao/redux-mock-store';
 import {render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
 import {Provider} from 'react-redux';
-import HistoryRouter from '../../components/history-route/history-route';
+import HistoryRoute from '../../components/history-route/history-route';
 import CitiesList from './cities-list';
 
 const mockStore = configureMockStore();
@@ -19,9 +19,9 @@ describe('Component: CitiesList', () => {
 
     render(
       <Provider store={store}>
-        <HistoryRouter history={history}>
+        <HistoryRoute history={history}>
           <CitiesList setIsSortMenuOpened={setIsSortMenuOpened}/>
-        </HistoryRouter>
+        </HistoryRoute>
       </Provider>
     );
 

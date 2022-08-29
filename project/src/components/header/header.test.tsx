@@ -2,7 +2,7 @@ import {configureMockStore} from '@jedmao/redux-mock-store';
 import {Provider} from 'react-redux';
 import {render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
-import HistoryRouter from '../../components/history-route/history-route';
+import HistoryRoute from '../../components/history-route/history-route';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import Header from './header';
 import {offers} from '../../mocks/offers';
@@ -24,9 +24,9 @@ describe('Component: Header', () => {
 
     render(
       <Provider store={store}>
-        <HistoryRouter history={history}>
+        <HistoryRoute history={history}>
           <Header/>
-        </HistoryRouter>
+        </HistoryRoute>
       </Provider>
     );
 
@@ -48,9 +48,9 @@ describe('Component: Header', () => {
 
     render(
       <Provider store={store}>
-        <HistoryRouter history={history}>
+        <HistoryRoute history={history}>
           <Header/>
-        </HistoryRouter>
+        </HistoryRoute>
       </Provider>
     );
 

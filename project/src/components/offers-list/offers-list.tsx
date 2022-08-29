@@ -12,7 +12,7 @@ function OffersList({listType, offers, onOfferItemHover}: OffersListProps): JSX.
   if (!offers) { throw new Error('no such point'); }
   return (
     offers ? (
-      <div className={listClassNameMap[listType]}>
+      <div className={listClassNameMap[listType]} data-testid="offersList">
         {
           offers.map((offer) => <PlaceCard key={offer.id} listType={listType} offer={offer} onOfferItemHover={onOfferItemHover}/>)
         }

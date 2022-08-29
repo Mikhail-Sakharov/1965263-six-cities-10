@@ -2,7 +2,7 @@ import {configureMockStore} from '@jedmao/redux-mock-store';
 import {Provider} from 'react-redux';
 import {render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
-import HistoryRouter from '../../components/history-route/history-route';
+import HistoryRoute from '../../components/history-route/history-route';
 import {offers} from '../../mocks/offers';
 import {AppRoute} from '../../const';
 import ReviewsForm from './reviews-form';
@@ -18,9 +18,9 @@ describe('Component: ReviewsForm', () => {
 
     render(
       <Provider store={store}>
-        <HistoryRouter history={history}>
+        <HistoryRoute history={history}>
           <ReviewsForm offerId={mockOffer.id}/>
-        </HistoryRouter>
+        </HistoryRoute>
       </Provider>
     );
 

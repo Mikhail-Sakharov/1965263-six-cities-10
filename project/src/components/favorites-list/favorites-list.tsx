@@ -16,7 +16,7 @@ function FavoritesList({favorites}: FavoritesListComponentProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   return (
-    <ul className="favorites__list">
+    <ul className="favorites__list" data-testid="favoritesList">
       {
         Array.from(favoritesMap).map((favorite) =>
           (

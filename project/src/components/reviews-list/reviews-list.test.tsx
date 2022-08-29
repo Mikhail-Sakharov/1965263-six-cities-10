@@ -3,22 +3,20 @@ import {createMemoryHistory} from 'history';
 import HistoryRoute from '../../components/history-route/history-route';
 import {AppRoute} from '../../const';
 import {reviews} from '../../mocks/reviews';
-import ReviewItem from './review-item';
+import ReviewsList from './reviews-list';
 
-describe('Component: ReviewItem', () => {
+describe('Component: ReviewsList', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
     history.push(AppRoute.Main);
-    const mockReview = reviews[0];
+    const mockReviews = reviews;
 
     render(
       <HistoryRoute history={history}>
-        <ReviewItem review={mockReview}/>
+        <ReviewsList reviews={mockReviews}/>
       </HistoryRoute>
     );
 
-    const nameElement = screen.getByText(/Isaac/i);
-
-    expect(nameElement).toBeInTheDocument();
+    expect(screen.getByTestId('reviewsList')).toBeInTheDocument();
   });
 });

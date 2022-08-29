@@ -10,11 +10,17 @@ import {useAppSelector} from '../../hooks';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {getDataLoadedStatus} from '../../store/app-data/selectors';
+import {fetchFavoritesAction} from '../../store/api-actions';
+import {store} from '../../store';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isDataLoaded = useAppSelector(getDataLoadedStatus);
   const isCheckedAuth = (authStatus: AuthorizationStatus): boolean => authStatus === AuthorizationStatus.Unknown;
+
+  if (authorizationStatus === AuthorizationStatus.Auth) {
+    store.dispatch(fetchFavoritesAction());
+  }
 
   if (isCheckedAuth(authorizationStatus) || isDataLoaded) {
     return (

@@ -1,33 +1,29 @@
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 import HistoryRoute from '../../components/history-route/history-route';
-import MainEmpty from './main-empty';
+import {AppRoute} from '../../const';
+import {offers} from '../../mocks/offers';
+import FavoritesList from './favorites-list';
 
+const mockOffers = offers;
 const mockStore = configureMockStore();
-const store = mockStore({
-  DATA: {
-    city: 'Paris'
-  }
-});
+const store = mockStore({});
 
-describe('Component: MainEmpty', () => {
+describe('Component: FavoritesList', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
+    history.push(AppRoute.Favorites);
 
     render(
       <Provider store={store}>
         <HistoryRoute history={history}>
-          <MainEmpty/>
+          <FavoritesList favorites={mockOffers} />
         </HistoryRoute>
       </Provider>
     );
 
-    const statusElement = screen.getByText(/No places to stay available/i);
-    const descriptionElement = screen.getByText(/We could not find any property available at the moment/i);
-
-    expect(statusElement).toBeInTheDocument();
-    expect(descriptionElement).toBeInTheDocument();
+    expect(screen.getByTestId('favoritesList')).toBeInTheDocument();
   });
 });

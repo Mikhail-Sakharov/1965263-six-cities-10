@@ -1,37 +1,33 @@
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
-import HistoryRoute from '../../components/history-route/history-route';
-import {offers} from '../../mocks/offers';
-import PlaceCard from './place-card';
 import {Provider} from 'react-redux';
+import HistoryRoute from '../../components/history-route/history-route';
 import {AppRoute, AuthorizationStatus} from '../../const';
+import {offers} from '../../mocks/offers';
+import OffersList from './offers-list';
 
-const mockOffer = offers[0];
+const mockOffers = offers;
 const mockStore = configureMockStore();
 const store = mockStore({
   DATA: {selectedOffer: offers[0]},
   USER: {authorizationStatus: AuthorizationStatus.Auth}
 });
-const history = createMemoryHistory();
 
-describe('Component: PlaceCard', () => {
+describe('Component: OffersList', () => {
   it('should render correctly', () => {
+    const history = createMemoryHistory();
     history.push(AppRoute.Main);
-    const onOfferItemHover = jest.fn();
+    const handleOfferItemHover = jest.fn();
 
     render(
       <Provider store={store}>
         <HistoryRoute history={history}>
-          <PlaceCard listType={'main'} offer={mockOffer} onOfferItemHover={onOfferItemHover}/>
+          <OffersList listType={'main'} offers={mockOffers} onOfferItemHover={handleOfferItemHover}/>
         </HistoryRoute>
       </Provider>
     );
 
-    const titleElement = screen.getByText(/Amazing and Extremely Central Flat/i);
-    const priceElement = screen.getByText(/462/i);
-
-    expect(titleElement).toBeInTheDocument();
-    expect(priceElement).toBeInTheDocument();
+    expect(screen.getByTestId('offersList')).toBeInTheDocument();
   });
 });
